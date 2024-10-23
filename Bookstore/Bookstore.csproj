@@ -14,4 +14,10 @@
     </PackageReference>
     <PackageReference Include="GitHub" Version="1.34.0" />
   </ItemGroup>
+  <ItemGroup>
+    <None Remove="class\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="class\" />
+  </ItemGroup>
 </Project>
