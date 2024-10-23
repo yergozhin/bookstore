@@ -1,9 +1,9 @@
 ﻿using System;
 namespace Bookstore.@class
 {
-	public class user
+	public class User
 	{
-		public user()
+		public User()
 		{
 		}
 	}
