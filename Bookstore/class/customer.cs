@@ -3,8 +3,11 @@ namespace Bookstore.@class
 {
 	public class Customer
 	{
-		public Customer()
+		private string address;
+
+		public Customer(string address)
 		{
+			this.address = address;
 		}
 	}
 }

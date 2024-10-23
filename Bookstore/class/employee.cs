@@ -3,8 +3,10 @@ namespace Bookstore.@class
 {
 	public class Employee
 	{
-		public Employee()
+		private string position;
+		public Employee(string position)
 		{
+			this.position = position;
 		}
 	}
 }
