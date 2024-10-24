@@ -7,6 +7,10 @@ namespace Bookstore.@class
 		private string address;
 		private string email;
 		private string phoneNumber;
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
 		public Publisher(string name, string address, string email, string phoneNumber = "")
 		{
 			this.name = name;
@@ -14,6 +18,19 @@ namespace Bookstore.@class
 			this.phoneNumber = phoneNumber;
 			this.email = email;
 		}
+<<<<<<< Updated upstream
 	}
+=======
+
+		//check @ in an email 
+        public bool checkEmail()
+        {
+            for (int i = 1; i < email.Length - 1; i++)
+                if (email[i].Equals('@'))
+                    return true;
+            return false;
+        }
+    }
+>>>>>>> Stashed changes
 }
 
