@@ -14,6 +14,18 @@ namespace Bookstore.@class
         private DateTime orderDate;
         private string status;
 
+        public DateTime OrderDate
+        {
+            get { return orderDate; }
+            set { orderDate = value; }
+        }
+
+        public string Status
+        {
+            get { return status; }
+            set { status = value; }
+        }
+
         public Order(DateTime orderDate, string status)
         {
             if (string.IsNullOrEmpty(status))
@@ -50,7 +62,6 @@ namespace Bookstore.@class
             }
         }
 
-      
         public static bool LoadOrders(string path = "orders.xml")
         {
             StreamReader file;

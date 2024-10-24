@@ -16,6 +16,30 @@ namespace Bookstore.@class
         private string email;
         private string phoneNumber;
 
+        public string Name
+        {
+            get { return name; }
+            set { name = value; }
+        }
+
+        public string Address
+        {
+            get { return address; }
+            set { address = value; }
+        }
+
+        public string Email
+        {
+            get { return email; }
+            set { email = value; }
+        }
+
+        public string PhoneNumber
+        {
+            get { return phoneNumber; }
+            set { phoneNumber = value; }
+        }
+
         public Publisher(string name, string address, string email, string phoneNumber = "")
         {
             this.name = name;

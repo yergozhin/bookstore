@@ -14,6 +14,24 @@ namespace Bookstore.@class
         private float amountInPercentage;
         private DateTime deadlineDate;
 
+        public string Type
+        {
+            get { return type; }
+            set { type = value; }
+        }
+
+        public float AmountInPercentage
+        {
+            get { return amountInPercentage; }
+            set { amountInPercentage = value; }
+        }
+
+        public DateTime DeadlineDate
+        {
+            get { return deadlineDate; }
+            set { deadlineDate = value; }
+        }
+
         public Discount(string type, float amountInPercentage, DateTime deadlineDate)
         {
             if (string.IsNullOrEmpty(type))

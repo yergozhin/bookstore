@@ -18,6 +18,18 @@ namespace Bookstore.@class
         private int lengthMin = 3;
         private int maxPrice = 10000;
 
+        public string Title
+        {
+            get { return title; }
+            set { title = value; }
+        }
+
+        public float Price
+        {
+            get { return price; }
+            set { price = value; }
+        }
+
         public Book(string title, float price)
         {
             if (string.IsNullOrEmpty(title) || title.Length < lengthMin || title.Length > lengthMax)
@@ -44,36 +56,10 @@ namespace Bookstore.@class
             books.Add(book);
         }
 
-        public string GetTitle()
+        public static List<Book> GetBooks()
         {
-            return this.title;
+            return new List<Book>(books);
         }
-
-        public float GetPrice()
-        {
-            return this.price;
-        }
-
-        public void SetPrice(float price)
-        {
-            if (price < 0 || price > maxPrice)
-            {
-                throw new ArgumentException($"Price must be between 0 and {maxPrice}.");
-            }
-            this.price = price;
-        }
-
-        public bool CheckTitle()
-        {
-            return title.Length >= lengthMin && title.Length <= lengthMax;
-        }
-
-        public bool CheckPrice()
-        {
-            return price >= 0 && price <= maxPrice;
-        }
-
-        // Метод для сохранения списка книг в файл (по примеру из лекции)
         public static void SaveBooks(string path = "books.xml")
         {
             StreamWriter file = File.CreateText(path);
@@ -84,7 +70,6 @@ namespace Bookstore.@class
             }
         }
 
-        // Метод для загрузки списка книг из файла (по примеру из лекции)
         public static bool LoadBooks(string path = "books.xml")
         {
             StreamReader file;

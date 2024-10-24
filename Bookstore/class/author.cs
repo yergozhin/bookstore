@@ -14,6 +14,24 @@ namespace Bookstore.@class
         private string lastName;
         private string bio;
 
+        public string FirstName
+        {
+            get { return firstName; }
+            set { firstName = value; }
+        }
+
+        public string LastName
+        {
+            get { return lastName; }
+            set { lastName = value; }
+        }
+
+        public string Bio
+        {
+            get { return bio; }
+            set { bio = value; }
+        }
+
         public Author(string firstName, string lastName, string bio = "")
         {
             this.firstName = firstName;
