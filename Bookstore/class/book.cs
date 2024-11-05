@@ -13,6 +13,8 @@ namespace Bookstore.@class
 
         private string title;
         private float price;
+        private string languageOfPublication;
+        private List<String> listOfLanguagesToWhichTranslated;
 
         private int lengthMax = 50;
         private int lengthMin = 3;
@@ -30,7 +32,7 @@ namespace Bookstore.@class
             set { price = value; }
         }
 
-        public Book(string title, float price)
+        public Book(string title, float price, string languageOfPublication, List<String> listOfLanguagesToWhichTranslated = null, string addLanguage = "")
         {
             if (string.IsNullOrEmpty(title) || title.Length < lengthMin || title.Length > lengthMax)
             {
@@ -41,12 +43,46 @@ namespace Bookstore.@class
             {
                 throw new ArgumentException($"Price must be between 0 and {maxPrice}.");
             }
-
+            this.languageOfPublication = languageOfPublication;
             this.title = title;
             this.price = price;
+            Book tempBook = findBook(title);
+            if (tempBook == null)
+            {
+                this.listOfLanguagesToWhichTranslated = new List<string>();
+            }
+            else
+            {
+                this.listOfLanguagesToWhichTranslated = tempBook.listOfLanguagesToWhichTranslated;
+                if (addLanguage.Length >= 1)
+                {
+                    this.listOfLanguagesToWhichTranslated.Add(addLanguage);
+                }
+                deleteBook(title);
+            }
             addBook(this);
         }
-
+        private static void deleteBook(string title)
+        {
+            foreach (var book in Book.GetBooks())
+            {
+                if (book.title == title)
+                {
+                    Book.GetBooks().Remove(book);
+                }
+            }
+        }
+        private static Book findBook(String title)
+        {
+            foreach (var book in Book.GetBooks())
+            {
+                if (book.title == title)
+                {
+                    return book;
+                }
+            }
+            return null;
+        }
         private static void addBook(Book book)
         {
             if (book == null)
