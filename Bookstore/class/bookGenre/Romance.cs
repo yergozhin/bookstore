@@ -18,7 +18,7 @@ namespace Bookstore.@class
             }
         }
 
-        public Romance(string title, float price, string relationshipsType) : base(title, price)
+        public Romance(string title, float price, string languageOfPublication, string relationshipsType) : base(title, price, languageOfPublication)
         {
             RelationshipsType = relationshipsType;
         }

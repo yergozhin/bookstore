@@ -18,7 +18,7 @@ namespace Bookstore.@class
             }
         }
 
-        public Comics(string title, float price, int issueNumber) : base(title, price)
+        public Comics(string title, float price, string languageOfPublication, int issueNumber) : base(title, price, languageOfPublication)
         {
             IssueNumber = issueNumber;
         }

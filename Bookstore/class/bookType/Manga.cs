@@ -18,7 +18,7 @@ namespace Bookstore.@class
             }
         }
 
-        public Manga(string title, float price, int volume) : base(title, price)
+        public Manga(string title, float price, string languageOfPublication, int volume) : base(title, price, languageOfPublication)
         {
             Volume = volume;
         }
