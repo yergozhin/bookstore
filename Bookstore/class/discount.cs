@@ -62,7 +62,7 @@ namespace Bookstore.@class
         {
             return new List<Discount>(discounts);
         }
-        public static void SaveDiscounts(string path = "discounts.xml")
+        /*public static void SaveDiscounts(string path = "discounts.xml")
         {
             StreamWriter file = File.CreateText(path);
             XmlSerializer xmlSerializer = new XmlSerializer(typeof(List<Discount>));
@@ -103,7 +103,7 @@ namespace Bookstore.@class
                 }
             }
             return true;
-        }
+        }*/
 
         public bool IsActive()
         {

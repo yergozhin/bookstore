@@ -53,7 +53,7 @@ namespace Bookstore.@class
             return new List<Author>(authors);
         }
 
-        public static void SaveAuthors(string path = "authors.xml")
+        /*public static void SaveAuthors(string path = "authors.xml")
         {
             StreamWriter file = File.CreateText(path);
             XmlSerializer xmlSerializer = new XmlSerializer(typeof(List<Author>));
@@ -94,6 +94,6 @@ namespace Bookstore.@class
                 }
             }
             return true;
-        }
+        }*/
     }
 }

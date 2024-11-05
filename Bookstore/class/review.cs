@@ -66,7 +66,7 @@ namespace Bookstore.@class
         {
             return new List<Review>(reviews);
         }
-        public static void SaveReviews(string path = "reviews.xml")
+        /*public static void SaveReviews(string path = "reviews.xml")
         {
             StreamWriter file = File.CreateText(path);
             XmlSerializer xmlSerializer = new XmlSerializer(typeof(List<Review>));
@@ -107,6 +107,6 @@ namespace Bookstore.@class
                 }
             }
             return true;
-        }
+        }*/
     }
 }

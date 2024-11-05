@@ -74,7 +74,7 @@ namespace Bookstore.@class
         {
             return new List<User>(users);
         }
-        public static void SaveUsers(string path = "users.xml")
+        /*public static void SaveUsers(string path = "users.xml")
         {
             StreamWriter file = File.CreateText(path);
             XmlSerializer xmlSerializer = new XmlSerializer(typeof(List<User>));
@@ -115,7 +115,7 @@ namespace Bookstore.@class
                 }
             }
             return true;
-        }
+        }*/
 
         public bool CheckAge()
         {

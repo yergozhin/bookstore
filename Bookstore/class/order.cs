@@ -52,7 +52,7 @@ namespace Bookstore.@class
             return new List<Order>(orders);
         }
 
-        public static void SaveOrders(string path = "orders.xml")
+        /*public static void SaveOrders(string path = "orders.xml")
         {
             StreamWriter file = File.CreateText(path);
             XmlSerializer xmlSerializer = new XmlSerializer(typeof(List<Order>));
@@ -94,6 +94,6 @@ namespace Bookstore.@class
                 }
             }
             return true;
-        }
+        }*/
     }
 }

@@ -62,7 +62,7 @@ namespace Bookstore.@class
         {
             return new List<Publisher>(publishers);
         }
-        public static void SavePublishers(string path = "publishers.xml")
+        /*public static void SavePublishers(string path = "publishers.xml")
         {
             StreamWriter file = File.CreateText(path);
             XmlSerializer xmlSerializer = new XmlSerializer(typeof(List<Publisher>));
@@ -103,7 +103,7 @@ namespace Bookstore.@class
                 }
             }
             return true;
-        }
+        }*/
         public bool CheckEmail()
         {
             return email.Contains('@');

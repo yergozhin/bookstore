@@ -32,6 +32,18 @@ namespace Bookstore.@class
             set { price = value; }
         }
 
+        public string LanguageOfPublication
+        {
+            get { return languageOfPublication; }
+            set { languageOfPublication = value; }
+        }
+
+        public List<string> ListOfLanguagesToWhichTranslated
+        {
+            get { return listOfLanguagesToWhichTranslated; }
+            set { listOfLanguagesToWhichTranslated = value ?? new List<string>(); }
+        }
+
         public Book(string title, float price, string languageOfPublication, List<String> listOfLanguagesToWhichTranslated = null, string addLanguage = "")
         {
             if (string.IsNullOrEmpty(title) || title.Length < lengthMin || title.Length > lengthMax)
@@ -96,7 +108,7 @@ namespace Bookstore.@class
         {
             return new List<Book>(books);
         }
-        public static void SaveBooks(string path = "books.xml")
+        /*public static void SaveBooks(string path = "books.xml")
         {
             StreamWriter file = File.CreateText(path);
             XmlSerializer xmlSerializer = new XmlSerializer(typeof(List<Book>));
@@ -138,6 +150,6 @@ namespace Bookstore.@class
                 }
             }
             return true;
-        }
+        }*/
     }
 }
