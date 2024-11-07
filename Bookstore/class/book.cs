@@ -76,17 +76,17 @@ namespace Bookstore.@class
         }
         private static void deleteBook(string title)
         {
-            foreach (var book in Book.GetBooks())
+            foreach (var book in Book.getBooks())
             {
                 if (book.title == title)
                 {
-                    Book.GetBooks().Remove(book);
+                    Book.getBooks().Remove(book);
                 }
             }
         }
         private static Book findBook(String title)
         {
-            foreach (var book in Book.GetBooks())
+            foreach (var book in Book.getBooks())
             {
                 if (book.title == title)
                 {
@@ -104,7 +104,7 @@ namespace Bookstore.@class
             books.Add(book);
         }
 
-        public static List<Book> GetBooks()
+        public static List<Book> getBooks()
         {
             return new List<Book>(books);
         }
