@@ -61,7 +61,8 @@ namespace Bookstore.@class
             DateOfBirth = dateOfBirth;
             addUser(this);
         }
-        private static void addUser(User user)
+        //Method addUser was private static and was modified to public
+        public void addUser(User user)
         {
             if (user == null)
             {
@@ -70,10 +71,12 @@ namespace Bookstore.@class
             users.Add(user);
         }
 
-        public static List<User> GetUsers()
+        //Method getUser was private static and was modified to public
+        public List<User> getUsers()
         {
             return new List<User>(users);
         }
+
         /*public static void SaveUsers(string path = "users.xml")
         {
             StreamWriter file = File.CreateText(path);
