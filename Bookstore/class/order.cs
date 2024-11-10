@@ -16,84 +16,33 @@ namespace Bookstore.@class
 
         public DateTime OrderDate
         {
-            get { return orderDate; }
+            get => orderDate;
             set { orderDate = value; }
         }
 
         public string Status
         {
-            get { return status; }
-            set { status = value; }
+            get => status;
+            set
+            {
+                if (string.IsNullOrEmpty(value))
+                {
+                    throw new ArgumentException("Status cannot be empty.");
+                }
+                status = value;
+            }
         }
 
         public Order(DateTime orderDate, string status)
         {
-            if (string.IsNullOrEmpty(status))
-            {
-                throw new ArgumentException("Status cannot be empty.");
-            }
-
-            this.orderDate = orderDate;
-            this.status = status;
-            addOrder(this);
-        }
-
-        private static void addOrder(Order order)
-        {
-            if (order == null)
-            {
-                throw new ArgumentException("Order cannot be null");
-            }
-            orders.Add(order);
+            OrderDate = orderDate;
+            Status = status;
+            orders.Add(this);
         }
 
         public static List<Order> GetOrders()
         {
             return new List<Order>(orders);
         }
-
-        /*public static void SaveOrders(string path = "orders.xml")
-        {
-            StreamWriter file = File.CreateText(path);
-            XmlSerializer xmlSerializer = new XmlSerializer(typeof(List<Order>));
-            using (XmlTextWriter writer = new XmlTextWriter(file))
-            {
-                xmlSerializer.Serialize(writer, orders);
-            }
-        }
-
-        public static bool LoadOrders(string path = "orders.xml")
-        {
-            StreamReader file;
-            try
-            {
-                file = File.OpenText(path);
-            }
-            catch (FileNotFoundException)
-            {
-                orders.Clear();
-                return false;
-            }
-
-            XmlSerializer xmlSerializer = new XmlSerializer(typeof(List<Order>));
-            using (XmlTextReader reader = new XmlTextReader(file))
-            {
-                try
-                {
-                    orders = (List<Order>)xmlSerializer.Deserialize(reader);
-                }
-                catch (InvalidCastException)
-                {
-                    orders.Clear();
-                    return false;
-                }
-                catch (Exception)
-                {
-                    orders.Clear();
-                    return false;
-                }
-            }
-            return true;
-        }*/
     }
 }

@@ -1,155 +1,78 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Xml;
-using System.Xml.Serialization;
-
-namespace Bookstore.@class
+﻿[Serializable]
+public class Book
 {
-    [Serializable]
-    public class Book
+    private static List<Book> books = new List<Book>();
+
+    private string title;
+    private double price;
+    private string languageOfPublication;
+    private List<string> listOfLanguagesToWhichTranslated;
+
+    private int lengthMax = 50;
+    private int lengthMin = 3;
+    private int maxPrice = 10000;
+
+    public string Title
     {
-        private static List<Book> books = new List<Book>();
-
-        private string title;
-        private float price;
-        private string languageOfPublication;
-        private List<String> listOfLanguagesToWhichTranslated;
-
-        private int lengthMax = 50;
-        private int lengthMin = 3;
-        private int maxPrice = 10000;
-
-        public string Title
+        get => title;
+        set
         {
-            get { return title; }
-            set { title = value; }
-        }
-
-        public float Price
-        {
-            get { return price; }
-            set { price = value; }
-        }
-
-        public string LanguageOfPublication
-        {
-            get { return languageOfPublication; }
-            set { languageOfPublication = value; }
-        }
-
-        public List<string> ListOfLanguagesToWhichTranslated
-        {
-            get { return listOfLanguagesToWhichTranslated; }
-            set { listOfLanguagesToWhichTranslated = value ?? new List<string>(); }
-        }
-
-        public Book(string title, float price, string languageOfPublication, List<String> listOfLanguagesToWhichTranslated = null, string addLanguage = "")
-        {
-            if (string.IsNullOrEmpty(title) || title.Length < lengthMin || title.Length > lengthMax)
+            if (string.IsNullOrEmpty(value) || value.Length < lengthMin || value.Length > lengthMax)
             {
                 throw new ArgumentException($"Title must be between {lengthMin} and {lengthMax} characters.");
             }
+            title = value;
+        }
+    }
 
-            if (price < 0 || price > maxPrice)
+    public double Price
+    {
+        get => price;
+        set
+        {
+            if (value < 0 || value > maxPrice)
             {
                 throw new ArgumentException($"Price must be between 0 and {maxPrice}.");
             }
-            this.languageOfPublication = languageOfPublication;
-            this.title = title;
-            this.price = price;
-            Book tempBook = findBook(title);
-            if (tempBook == null)
-            {
-                this.listOfLanguagesToWhichTranslated = new List<string>();
-            }
-            else
-            {
-                this.listOfLanguagesToWhichTranslated = tempBook.listOfLanguagesToWhichTranslated;
-                if (addLanguage.Length >= 1)
-                {
-                    this.listOfLanguagesToWhichTranslated.Add(addLanguage);
-                }
-                deleteBook(title);
-            }
-            addBook(this);
+            price = value;
         }
-        private static void deleteBook(string title)
-        {
-            foreach (var book in Book.getBooks())
-            {
-                if (book.title == title)
-                {
-                    Book.getBooks().Remove(book);
-                }
-            }
-        }
-        private static Book findBook(String title)
-        {
-            foreach (var book in Book.getBooks())
-            {
-                if (book.title == title)
-                {
-                    return book;
-                }
-            }
-            return null;
-        }
-        private static void addBook(Book book)
-        {
-            if (book == null)
-            {
-                throw new ArgumentException("Book cannot be null");
-            }
-            books.Add(book);
-        }
+    }
 
-        public static List<Book> getBooks()
+    public string LanguageOfPublication
+    {
+        get => languageOfPublication;
+        set
         {
-            return new List<Book>(books);
+            if (string.IsNullOrEmpty(value))
+            {
+                throw new ArgumentException("Language of publication cannot be empty.");
+            }
+            languageOfPublication = value;
         }
-        /*public static void SaveBooks(string path = "books.xml")
-        {
-            StreamWriter file = File.CreateText(path);
-            XmlSerializer xmlSerializer = new XmlSerializer(typeof(List<Book>));
-            using (XmlTextWriter writer = new XmlTextWriter(file))
-            {
-                xmlSerializer.Serialize(writer, books);
-            }
-        }
+    }
 
-        public static bool LoadBooks(string path = "books.xml")
-        {
-            StreamReader file;
-            try
-            {
-                file = File.OpenText(path);
-            }
-            catch (FileNotFoundException)
-            {
-                books.Clear();
-                return false;
-            }
+    public List<string> ListOfLanguagesToWhichTranslated
+    {
+        get => new List<string>(listOfLanguagesToWhichTranslated);
+        set => listOfLanguagesToWhichTranslated = value ?? new List<string>();
+    }
 
-            XmlSerializer xmlSerializer = new XmlSerializer(typeof(List<Book>));
-            using (XmlTextReader reader = new XmlTextReader(file))
-            {
-                try
-                {
-                    books = (List<Book>)xmlSerializer.Deserialize(reader);
-                }
-                catch (InvalidCastException)
-                {
-                    books.Clear();
-                    return false;
-                }
-                catch (Exception)
-                {
-                    books.Clear();
-                    return false;
-                }
-            }
-            return true;
-        }*/
+    public Book() // Параметрless конструктор
+    {
+        ListOfLanguagesToWhichTranslated = new List<string>(); // Инициализируем коллекцию
+    }
+
+    public Book(string title, double price, string languageOfPublication, List<string> listOfLanguagesToWhichTranslated = null)
+    {
+        Title = title;
+        Price = price;
+        LanguageOfPublication = languageOfPublication;
+        ListOfLanguagesToWhichTranslated = listOfLanguagesToWhichTranslated ?? new List<string>();
+        books.Add(this);
+    }
+
+    public static List<Book> GetBooks()
+    {
+        return new List<Book>(books);
     }
 }

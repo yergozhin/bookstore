@@ -19,7 +19,12 @@ namespace Bookstore.@class
         public string Name
         {
             get { return name; }
-            set { name = value; }
+            set
+            {
+                if (string.IsNullOrEmpty(value))
+                    throw new ArgumentException("Name cannot be empty.");
+                name = value;
+            }
         }
 
         public string Address
@@ -31,7 +36,12 @@ namespace Bookstore.@class
         public string Email
         {
             get { return email; }
-            set { email = value; }
+            set
+            {
+                if (string.IsNullOrEmpty(value) || !value.Contains('@'))
+                    throw new ArgumentException("Invalid email address.");
+                email = value;
+            }
         }
 
         public string PhoneNumber
@@ -42,71 +52,16 @@ namespace Bookstore.@class
 
         public Publisher(string name, string address, string email, string phoneNumber = "")
         {
-            this.name = name;
-            this.address = address;
-            this.phoneNumber = phoneNumber;
-            this.email = email;
-            addPublisher(this);
-        }
-
-        private static void addPublisher(Publisher publisher)
-        {
-            if (publisher == null)
-            {
-                throw new ArgumentException("Publisher cannot be null");
-            }
-            publishers.Add(publisher);
+            Name = name;
+            Address = address;
+            Email = email;
+            PhoneNumber = phoneNumber;
+            publishers.Add(this);
         }
 
         public static List<Publisher> GetPublishers()
         {
             return new List<Publisher>(publishers);
-        }
-        /*public static void SavePublishers(string path = "publishers.xml")
-        {
-            StreamWriter file = File.CreateText(path);
-            XmlSerializer xmlSerializer = new XmlSerializer(typeof(List<Publisher>));
-            using (XmlTextWriter writer = new XmlTextWriter(file))
-            {
-                xmlSerializer.Serialize(writer, publishers);
-            }
-        }
-        public static bool LoadPublishers(string path = "publishers.xml")
-        {
-            StreamReader file;
-            try
-            {
-                file = File.OpenText(path);
-            }
-            catch (FileNotFoundException)
-            {
-                publishers.Clear();
-                return false;
-            }
-
-            XmlSerializer xmlSerializer = new XmlSerializer(typeof(List<Publisher>));
-            using (XmlTextReader reader = new XmlTextReader(file))
-            {
-                try
-                {
-                    publishers = (List<Publisher>)xmlSerializer.Deserialize(reader);
-                }
-                catch (InvalidCastException)
-                {
-                    publishers.Clear();
-                    return false;
-                }
-                catch (Exception)
-                {
-                    publishers.Clear();
-                    return false;
-                }
-            }
-            return true;
-        }*/
-        public bool CheckEmail()
-        {
-            return email.Contains('@');
         }
     }
 }
