@@ -60,7 +60,7 @@ namespace Bookstore.@class
             get => dateOfBirth;
             set
             {
-                if (DateTime.Today < value)
+                if (DateTime.Today < value || value == null)
                 {
                     throw new ArgumentException("Invalid date of birth.");
                 }
