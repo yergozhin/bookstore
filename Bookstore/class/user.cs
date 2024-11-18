@@ -65,7 +65,7 @@ namespace Bookstore.@class
 
         public static List<User> GetUsers()
         {
-            return new List<User>(users);
+            return users;
         }
     }
 }
