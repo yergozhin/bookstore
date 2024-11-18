@@ -13,6 +13,8 @@ namespace Bookstore.@class
 
         private DateTime orderDate;
         private string status;
+        private float totalAmount;
+        private List<Book> books;
 
         public DateTime OrderDate
         {
@@ -33,16 +35,38 @@ namespace Bookstore.@class
             }
         }
 
+        public float TotalAmount
+        {
+            get => totalAmount;
+        }
+
         public Order(DateTime orderDate, string status)
         {
             OrderDate = orderDate;
             Status = status;
+            books = new List<Book>();
+            totalAmount = 0;
             orders.Add(this);
         }
 
         public static List<Order> GetOrders()
         {
             return orders;
+        }
+
+        public void addBookToOrder(Book book)
+        {
+            totalAmount = totalAmount + (float)book.Price;
+            books.Add(book);
+        }
+        public void deleteBookFromOrder(Book book)
+        {
+            if (!books.Contains(book))
+            {
+                return;
+            }
+            books.Remove(book);
+            totalAmount = totalAmount - (float)book.Price;
         }
     }
 }
