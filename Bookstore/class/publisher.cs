@@ -50,7 +50,7 @@ namespace Bookstore.@class
             set { phoneNumber = value; }
         }
 
-        public Publisher(string name, string address, string email, string phoneNumber = "")
+        public Publisher(string name, string address, string email, string phoneNumber = null)
         {
             Name = name;
             Address = address;
@@ -61,7 +61,7 @@ namespace Bookstore.@class
 
         public static List<Publisher> GetPublishers()
         {
-            return new List<Publisher>(publishers);
+            return publishers;
         }
     }
 }

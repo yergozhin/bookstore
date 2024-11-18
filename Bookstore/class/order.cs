@@ -42,7 +42,7 @@ namespace Bookstore.@class
 
         public static List<Order> GetOrders()
         {
-            return new List<Order>(orders);
+            return orders;
         }
     }
 }

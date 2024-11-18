@@ -57,7 +57,7 @@ namespace Bookstore.@class
 
         public static List<Review> GetReviews()
         {
-            return new List<Review>(reviews);
+            return reviews;
         }
     }
 }

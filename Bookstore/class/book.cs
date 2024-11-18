@@ -73,6 +73,6 @@ public class Book
 
     public static List<Book> GetBooks()
     {
-        return new List<Book>(books);
+        return books;
     }
 }

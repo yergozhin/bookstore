@@ -46,7 +46,7 @@ namespace Bookstore.@class
             set { bio = value; }
         }
 
-        public Author(string firstName, string lastName, string bio = "")
+        public Author(string firstName, string lastName, string bio = null)
         {
             FirstName = firstName;
             LastName = lastName;
@@ -56,7 +56,7 @@ namespace Bookstore.@class
 
         public static List<Author> GetAuthors()
         {
-            return new List<Author>(authors);
+            return authors;
         }
     }
 }

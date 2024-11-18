@@ -56,7 +56,7 @@ namespace Bookstore.@class
 
         public static List<Discount> GetDiscounts()
         {
-            return new List<Discount>(discounts);
+            return discounts;
         }
     }
 }
