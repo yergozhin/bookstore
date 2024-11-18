@@ -32,7 +32,14 @@ namespace Bookstore.@class
         public string PhoneNumber
         {
             get => phoneNumber;
-            set => phoneNumber = value;
+            set
+            {
+                if (string.IsNullOrEmpty(value))
+                {
+                    throw new ArgumentException("Phone number cannot be empty.");
+                }
+                phoneNumber = value;
+            }
         }
 
         public string Email
@@ -51,7 +58,14 @@ namespace Bookstore.@class
         public DateTime DateOfBirth
         {
             get => dateOfBirth;
-            set => dateOfBirth = value;
+            set
+            {
+                if (DateTime.Today < value)
+                {
+                    throw new ArgumentException("Invalid date of birth.");
+                }
+                dateOfBirth = value;
+            }
         }
 
         public User(string name, string phoneNumber, string email, DateTime dateOfBirth)

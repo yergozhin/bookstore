@@ -75,4 +75,15 @@ public class Book
     {
         return books;
     }
+    public void addLanguageToWhichTranslated(string language) {
+        if (listOfLanguagesToWhichTranslated.Contains(language))
+        {
+            return;
+        }
+        if (string.IsNullOrEmpty(language)) {
+            throw new ArgumentException("Language to which the book was translated cannot be empty.");
+        }
+        listOfLanguagesToWhichTranslated.Add(language);
+    }
+
 }
