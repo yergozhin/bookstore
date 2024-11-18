@@ -44,7 +44,14 @@ namespace Bookstore.@class
         public DateTime ReviewDate
         {
             get => reviewDate;
-            set => reviewDate = value;
+            set
+            {
+                if (DateTime.Today < value)
+                {
+                    throw new ArgumentException("Invalid review date.");
+                }
+                reviewDate = value;
+            }
         }
 
         public Review(int rating, string comment, DateTime reviewDate)
