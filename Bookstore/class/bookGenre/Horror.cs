@@ -4,20 +4,7 @@ namespace Bookstore.@class
 {
     public class Horror : Book
     {
-        private string _type;
         private int _levelOfScariness;
-        public string Type
-        {
-            get => _type;
-            set
-            {
-                if (string.IsNullOrEmpty(value))
-                {
-                    throw new ArgumentException("Type cannot be empty.");
-                }
-                _type = value;
-            }
-        }
         public int LevelOfScariness
         {
             get => _levelOfScariness;
@@ -31,9 +18,8 @@ namespace Bookstore.@class
             }
         }
 
-        public Horror(string title, float price, string languageOfPublication, string type, int levelOfScariness) : base(title, price, languageOfPublication)
+        public Horror(string title, float price, string languageOfPublication, int levelOfScariness) : base(title, price, languageOfPublication)
         {
-            Type = type;
             LevelOfScariness = levelOfScariness;
 
         }

@@ -19,6 +19,10 @@ namespace Bookstore.@class
             get => type;
             set
             {
+                if(value != "Single Use" && value != "Multiple Use")
+                {
+                    throw new ArgumentException("Type must be either Single Use or Multiple Use");
+                }
                 if (string.IsNullOrEmpty(value))
                 {
                     throw new ArgumentException("Type cannot be empty.");
@@ -43,7 +47,14 @@ namespace Bookstore.@class
         public DateTime DeadlineDate
         {
             get => deadlineDate;
-            set { deadlineDate = value; }
+            set
+            {
+                if (DateTime.Today > value)
+                {
+                    throw new ArgumentException("Invalid date of deadline.");
+                }
+                deadlineDate = value;
+            }
         }
 
         public Discount(string type, float amountInPercentage, DateTime deadlineDate)

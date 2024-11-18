@@ -19,7 +19,14 @@ namespace Bookstore.@class
         public DateTime OrderDate
         {
             get => orderDate;
-            set { orderDate = value; }
+            set
+            {
+                if (DateTime.Today < value)
+                {
+                    throw new ArgumentException("Invalid order date.");
+                }
+                orderDate = value;
+            }
         }
 
         public string Status
