@@ -65,11 +65,18 @@ namespace Bookstore.@class
             orders.Add(this);
         }
 
+        public static void ClearOrders()
+        {
+            orders.Clear();
+        }
         public static List<Order> GetOrders()
         {
-            return orders;
+            return new List<Order>(orders);
         }
-
+        public static void Add(Order order)
+        {
+            orders.Add(order);
+        }
         public void addBookToOrder(Book book)
         {
             totalAmount = totalAmount + (float)book.Price;

@@ -61,7 +61,7 @@ namespace Bookstore.@class.Tests
         public void CheckExtentPersistency()
         {
             BookstoreFileManager.SaveBookstore();
-            Discount.GetDiscounts().Clear();
+            Discount.ClearDiscounts();
             Assert.That(Discount.GetDiscounts().Count, Is.EqualTo(0));
             BookstoreFileManager.LoadBookstore();
             List<Discount> discounts = Discount.GetDiscounts();

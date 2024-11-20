@@ -65,9 +65,17 @@ namespace Bookstore.@class
             discounts.Add(this);
         }
 
+        public static void ClearDiscounts()
+        {
+            discounts.Clear();
+        }
         public static List<Discount> GetDiscounts()
         {
-            return discounts;
+            return new List<Discount>(discounts);
+        }
+        public static void Add(Discount discount)
+        {
+            discounts.Add(discount);
         }
     }
 }

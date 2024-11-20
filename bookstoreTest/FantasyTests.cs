@@ -13,7 +13,7 @@ namespace Bookstore.@class.Tests
         [SetUp]
         public void Setup()
         {
-            Book.GetBooks().Clear();
+            Book.ClearBooks();
 
             fantasy1 = new Fantasy("Magic in Mystic Falls", 399.99f, "English", new List<string> { "Vampires", "Witches" });
             fantasy2 = new Fantasy("Secrets of the Supernatural", 299.99f, "Spanish", new List<string> { "Werewolves" });
@@ -62,7 +62,7 @@ namespace Bookstore.@class.Tests
         public void CheckExtentPersistency()
         {
             BookstoreFileManager.SaveBookstore();
-            Book.GetBooks().Clear();
+            Book.ClearBooks();
             Assert.That(Book.GetBooks().Count, Is.EqualTo(0));
             BookstoreFileManager.LoadBookstore();
             List<Fantasy> fantasies = Book.GetBooks().ConvertAll(book => book as Fantasy).FindAll(b => b != null);

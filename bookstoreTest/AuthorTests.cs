@@ -61,7 +61,7 @@ namespace Bookstore.@class.Tests
         public void CheckExtentPersistency()
         {
             BookstoreFileManager.SaveBookstore();
-            Author.GetAuthors().Clear();
+            Author.ClearAuthors();
             Assert.That(Author.GetAuthors().Count, Is.EqualTo(0));
             BookstoreFileManager.LoadBookstore();
             List<Author> authors = Author.GetAuthors();

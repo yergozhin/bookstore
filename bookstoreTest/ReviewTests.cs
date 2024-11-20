@@ -13,7 +13,7 @@ namespace Bookstore.@class.Tests
         [SetUp]
         public void Setup()
         {
-            Review.GetReviews().Clear();
+            Review.ClearReviews();
 
             review1 = new Review(5, "Amazing read!", new DateTime(2024, 10, 31));
             review2 = new Review(3, "It was ok.", new DateTime(2024, 11, 1));
@@ -69,7 +69,7 @@ namespace Bookstore.@class.Tests
         public void CheckExtentPersistency()
         {
             BookstoreFileManager.SaveBookstore();
-            Review.GetReviews().Clear();
+            Review.ClearReviews();
             Assert.That(Review.GetReviews().Count, Is.EqualTo(0));
             BookstoreFileManager.LoadBookstore();
             List<Review> reviews = Review.GetReviews();

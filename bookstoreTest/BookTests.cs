@@ -69,7 +69,7 @@ namespace Bookstore.@class.Tests
         public void CheckExtentPersistency()
         {
             BookstoreFileManager.SaveBookstore();
-            Book.GetBooks().Clear();
+            Book.ClearBooks();
             Assert.That(Book.GetBooks().Count, Is.EqualTo(0));
             BookstoreFileManager.LoadBookstore();
             List<Book> books = Book.GetBooks();

@@ -13,7 +13,7 @@ namespace Bookstore.@class.Tests
         [SetUp]
         public void Setup()
         {
-            Book.GetBooks().Clear();
+            Book.ClearBooks();
             comics1 = new Comics("Mystic Chronicles", 49.99f, "English", 1);
             comics2 = new Comics("Supernatural Adventures", 59.99f, "Spanish", 5);
         }
@@ -63,7 +63,7 @@ namespace Bookstore.@class.Tests
         public void CheckExtentPersistency()
         {
             BookstoreFileManager.SaveBookstore();
-            Book.GetBooks().Clear();
+            Book.ClearBooks();
             Assert.That(Book.GetBooks().Count, Is.EqualTo(0));
             BookstoreFileManager.LoadBookstore();
             List<Comics> comicsList = Book.GetBooks().ConvertAll(book => book as Comics).FindAll(b => b != null);

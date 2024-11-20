@@ -13,7 +13,7 @@ namespace Bookstore.@class.Tests
         [SetUp]
         public void Setup()
         {
-            Book.GetBooks().Clear();
+            Book.ClearBooks();
 
             horror1 = new Horror("Mystic Legends", 199.99f, "English", 7);
             horror2 = new Horror("The Vampire's Secret", 299.99f, "French", 5);
@@ -66,7 +66,7 @@ namespace Bookstore.@class.Tests
         public void CheckExtentPersistency()
         {
             BookstoreFileManager.SaveBookstore();
-            Book.GetBooks().Clear();
+            Book.ClearBooks();
             Assert.That(Book.GetBooks().Count, Is.EqualTo(0));
             BookstoreFileManager.LoadBookstore();
             List<Horror> horrors = Book.GetBooks().ConvertAll(book => book as Horror).FindAll(b => b != null);

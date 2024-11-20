@@ -13,7 +13,7 @@ namespace Bookstore.@class.Tests
         [SetUp]
         public void Setup()
         {
-            Book.GetBooks().Clear();
+            Book.ClearBooks();
 
             romance1 = new Romance("Love in Mystic Falls", 159.99f, "English", "Forbidden Love");
             romance2 = new Romance("Eternal Flame", 199.99f, "French", "Unrequited Love");
@@ -64,7 +64,7 @@ namespace Bookstore.@class.Tests
         public void CheckExtentPersistency()
         {
             BookstoreFileManager.SaveBookstore();
-            Book.GetBooks().Clear();
+            Book.ClearBooks();
             Assert.That(Book.GetBooks().Count, Is.EqualTo(0));
             BookstoreFileManager.LoadBookstore();
             List<Romance> romances = Book.GetBooks().ConvertAll(book => book as Romance).FindAll(b => b != null);

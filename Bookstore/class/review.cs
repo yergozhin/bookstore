@@ -62,9 +62,17 @@ namespace Bookstore.@class
             reviews.Add(this);
         }
 
+        public static void ClearReviews()
+        {
+            reviews.Clear();
+        }
         public static List<Review> GetReviews()
         {
-            return reviews;
+            return new List<Review>(reviews);
+        }
+        public static void Add(Review review)
+        {
+            reviews.Add(review);
         }
     }
 }

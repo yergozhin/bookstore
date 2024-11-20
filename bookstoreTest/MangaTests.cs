@@ -13,7 +13,7 @@ namespace Bookstore.@class.Tests
         [SetUp]
         public void Setup()
         {
-            Book.GetBooks().Clear();
+            Book.ClearBooks();
 
             manga1 = new Manga("Mystic Warriors", 79.99f, "Japanese", 3);
             manga2 = new Manga("Vampire Chronicles", 89.99f, "English", 5);
@@ -64,7 +64,7 @@ namespace Bookstore.@class.Tests
         public void CheckExtentPersistency()
         {
             BookstoreFileManager.SaveBookstore();
-            Book.GetBooks().Clear();
+            Book.ClearBooks();
             Assert.That(Book.GetBooks().Count, Is.EqualTo(0));
             BookstoreFileManager.LoadBookstore();
             List<Manga> mangas = Book.GetBooks().ConvertAll(book => book as Manga).FindAll(b => b != null);

@@ -13,7 +13,7 @@ namespace Bookstore.@class.Tests
         [SetUp]
         public void Setup()
         {
-            Publisher.GetPublishers().Clear();
+            Publisher.ClearPublishers();
 
             publisher1 = new Publisher("Mystic Falls Publishing", "123 Vampire Lane", "contact@mysticfalls.com", "123-456-7890");
             publisher2 = new Publisher("Salvatore Books", "Salvatore Mansion", "info@salvatorebooks.com");
@@ -70,7 +70,7 @@ namespace Bookstore.@class.Tests
         public void CheckExtentPersistency()
         {
             BookstoreFileManager.SaveBookstore();
-            Publisher.GetPublishers().Clear();
+            Publisher.ClearPublishers();
             Assert.That(Publisher.GetPublishers().Count, Is.EqualTo(0));
             BookstoreFileManager.LoadBookstore();
             List<Publisher> publishers = Publisher.GetPublishers();

@@ -1,4 +1,6 @@
-﻿[Serializable]
+﻿using Bookstore.@class;
+
+[Serializable]
 public class Book
 {
     private static List<Book> books = new List<Book>();
@@ -71,9 +73,17 @@ public class Book
         books.Add(this);
     }
 
+    public static void ClearBooks()
+    {
+        books.Clear();
+    }
     public static List<Book> GetBooks()
     {
-        return books;
+        return new List<Book>(books);
+    }
+    public static void Add(Book book)
+    {
+        books.Add(book);
     }
     public void addLanguageToWhichTranslated(string language) {
         if (listOfLanguagesToWhichTranslated.Contains(language))

@@ -13,7 +13,7 @@ namespace Bookstore.@class.Tests
         [SetUp]
         public void Setup()
         {
-            User.GetUsers().Clear();
+            User.ClearUsers();
 
             user1 = new User("Elena Gilbert", "123-456-7890", "elena@gilbert.com", new DateTime(1992, 6, 22));
             user2 = new User("Damon Salvatore", "987-654-3210", "damon@salvatore.com", new DateTime(1840, 10, 1));
@@ -40,7 +40,7 @@ namespace Bookstore.@class.Tests
         public void CheckExtentPersistency()
         {
             BookstoreFileManager.SaveBookstore();
-            User.GetUsers().Clear();
+            User.ClearUsers();
             Assert.That(User.GetUsers().Count, Is.EqualTo(0));
             BookstoreFileManager.LoadBookstore();
             List<User> users = User.GetUsers();

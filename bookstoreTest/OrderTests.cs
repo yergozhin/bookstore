@@ -51,7 +51,7 @@ namespace Bookstore.@class.Tests
         public void CheckExtentPersistency()
         {
             BookstoreFileManager.SaveBookstore();
-            Order.GetOrders().Clear();
+            Order.ClearOrders();
             Assert.That(Order.GetOrders().Count, Is.EqualTo(0));
             BookstoreFileManager.LoadBookstore();
             List<Order> orders = Order.GetOrders();

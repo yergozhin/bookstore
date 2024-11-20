@@ -57,7 +57,7 @@ namespace Bookstore.@class.Tests
         public void CheckExtentPersistency()
         {
             BookstoreFileManager.SaveBookstore();
-            Employee.GetUsers().Clear();
+            Employee.ClearUsers();
             Assert.That(Employee.GetUsers().Count, Is.EqualTo(0));
             BookstoreFileManager.LoadBookstore();
             List<Employee> employees = Employee.GetUsers().ConvertAll(user => (Employee)user);

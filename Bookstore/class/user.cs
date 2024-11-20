@@ -77,9 +77,17 @@ namespace Bookstore.@class
             users.Add(this);
         }
 
+        public static void ClearUsers()
+        {
+            users.Clear();
+        }
         public static List<User> GetUsers()
         {
-            return users;
+            return new List<User>(users);
+        }
+        public static void Add(User user)
+        {
+            users.Add(user);
         }
     }
 }

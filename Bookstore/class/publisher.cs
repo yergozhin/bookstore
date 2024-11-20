@@ -59,9 +59,17 @@ namespace Bookstore.@class
             publishers.Add(this);
         }
 
+        public static void ClearPublishers()
+        {
+            publishers.Clear();
+        }
         public static List<Publisher> GetPublishers()
         {
-            return publishers;
+            return new List<Publisher>(publishers);
+        }
+        public static void Add(Publisher publisher)
+        {
+            publishers.Add(publisher);
         }
     }
 }
