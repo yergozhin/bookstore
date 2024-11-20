@@ -42,10 +42,19 @@ namespace Bookstore.@class
             }
         }
 
-        public float TotalAmount
+        public double TotalAmount
         {
-            get => totalAmount;
+            get
+            {
+                double total = 0;
+                foreach (var book in books)
+                {
+                    total += book.Price;
+                }
+                return total;
+            }
         }
+
 
         public Order(DateTime orderDate, string status)
         {
