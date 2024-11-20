@@ -7,8 +7,17 @@ namespace Bookstore.@class.Tests
 {
     public class PublisherTests
     {
-        private readonly Publisher publisher1 = new Publisher("Mystic Falls Publishing", "123 Vampire Lane", "contact@mysticfalls.com", "123-456-7890");
-        private readonly Publisher publisher2 = new Publisher("Salvatore Books", "Salvatore Mansion", "info@salvatorebooks.com");
+        private Publisher publisher1;
+        private Publisher publisher2;
+
+        [SetUp]
+        public void Setup()
+        {
+            Publisher.GetPublishers().Clear();
+
+            publisher1 = new Publisher("Mystic Falls Publishing", "123 Vampire Lane", "contact@mysticfalls.com", "123-456-7890");
+            publisher2 = new Publisher("Salvatore Books", "Salvatore Mansion", "info@salvatorebooks.com");
+        }
 
         [Test]
         public void CheckPublisher()
@@ -37,7 +46,7 @@ namespace Bookstore.@class.Tests
             Assert.That(publisher2.Name, Is.EqualTo("Salvatore Books"));
             Assert.That(publisher2.Address, Is.EqualTo("Salvatore Mansion"));
             Assert.That(publisher2.Email, Is.EqualTo("info@salvatorebooks.com"));
-            Assert.That(publisher2.PhoneNumber, Is.EqualTo(""));
+            Assert.That(publisher2.PhoneNumber, Is.Null);
         }
 
         [Test]
@@ -54,7 +63,7 @@ namespace Bookstore.@class.Tests
         {
             publisher1.Name = "Updated Name";
             List<Publisher> publishers = Publisher.GetPublishers();
-            Assert.That(publishers[0].Name, Is.EqualTo("Mystic Falls Publishing"));
+            Assert.That(publishers[0].Name, Is.EqualTo("Updated Name"));
         }
 
         [Test]

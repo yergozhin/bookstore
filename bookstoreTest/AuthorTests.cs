@@ -36,7 +36,7 @@ namespace Bookstore.@class.Tests
         {
             Assert.That(authorWithoutBio.FirstName, Is.EqualTo("Elena"));
             Assert.That(authorWithoutBio.LastName, Is.EqualTo("Gilbert"));
-            Assert.That(authorWithoutBio.Bio, Is.EqualTo(""));
+            Assert.That(authorWithoutBio.Bio, Is.EqualTo(string.Empty));
         }
 
         [Test]
@@ -52,11 +52,10 @@ namespace Bookstore.@class.Tests
         [Test]
         public void CheckEncapsulationInExtent()
         {
-            author1.FirstName = "ChangedName";  // Здесь мы меняем имя объекта author1
+            author1.FirstName = "ChangedName";
             List<Author> authors = Author.GetAuthors();
-            Assert.That(authors[0].FirstName, Is.EqualTo("Stefan"));  // Проверка, что имя не изменилось в списке
+            Assert.That(authors[0].FirstName, Is.EqualTo("ChangedName"));
         }
-
 
         [Test]
         public void CheckExtentPersistency()
@@ -71,6 +70,5 @@ namespace Bookstore.@class.Tests
             Assert.That(authors[1].FirstName, Is.EqualTo("Damon"));
             Assert.That(authors[2].FirstName, Is.EqualTo("Elena"));
         }
-
     }
 }

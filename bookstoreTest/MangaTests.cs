@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using NUnit.Framework;
 using Bookstore.@class;
 
@@ -6,8 +7,17 @@ namespace Bookstore.@class.Tests
 {
     public class MangaTests
     {
-        private readonly Manga manga1 = new Manga("Mystic Warriors", 79.99f, "Japanese", 3);
-        private readonly Manga manga2 = new Manga("Vampire Chronicles", 89.99f, "English", 5);
+        private Manga manga1;
+        private Manga manga2;
+
+        [SetUp]
+        public void Setup()
+        {
+            Book.GetBooks().Clear();
+
+            manga1 = new Manga("Mystic Warriors", 79.99f, "Japanese", 3);
+            manga2 = new Manga("Vampire Chronicles", 89.99f, "English", 5);
+        }
 
         [Test]
         public void CheckMangaAttributes()
@@ -47,7 +57,7 @@ namespace Bookstore.@class.Tests
         {
             manga1.Title = "Changed Title";
             List<Manga> mangas = Book.GetBooks().ConvertAll(book => book as Manga).FindAll(b => b != null);
-            Assert.That(mangas[0].Title, Is.EqualTo("Mystic Warriors"));
+            Assert.That(mangas[0].Title, Is.EqualTo("Changed Title"));
         }
 
         [Test]

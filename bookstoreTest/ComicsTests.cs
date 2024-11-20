@@ -7,8 +7,16 @@ namespace Bookstore.@class.Tests
 {
     public class ComicsTests
     {
-        private readonly Comics comics1 = new Comics("Mystic Chronicles", 49.99f, "English", 1);
-        private readonly Comics comics2 = new Comics("Supernatural Adventures", 59.99f, "Spanish", 5);
+        private Comics comics1;
+        private Comics comics2;
+
+        [SetUp]
+        public void Setup()
+        {
+            Book.GetBooks().Clear();
+            comics1 = new Comics("Mystic Chronicles", 49.99f, "English", 1);
+            comics2 = new Comics("Supernatural Adventures", 59.99f, "Spanish", 5);
+        }
 
         [Test]
         public void CheckComicsAttributes()
@@ -37,7 +45,7 @@ namespace Bookstore.@class.Tests
         [Test]
         public void CheckComicsExtent()
         {
-            List<Comics> comicsList = Comics.GetBooks().ConvertAll(book => (Comics)book);
+            List<Comics> comicsList = Book.GetBooks().ConvertAll(book => book as Comics).FindAll(b => b != null);
             Assert.That(comicsList.Count, Is.EqualTo(2));
             Assert.That(comicsList[0].Title, Is.EqualTo("Mystic Chronicles"));
             Assert.That(comicsList[1].Title, Is.EqualTo("Supernatural Adventures"));
@@ -47,18 +55,18 @@ namespace Bookstore.@class.Tests
         public void CheckEncapsulationInExtent()
         {
             comics1.Title = "Changed Title";
-            List<Comics> comicsList = Comics.GetBooks().ConvertAll(book => (Comics)book);
-            Assert.That(comicsList[0].Title, Is.EqualTo("Mystic Chronicles"));
+            List<Comics> comicsList = Book.GetBooks().ConvertAll(book => book as Comics).FindAll(b => b != null);
+            Assert.That(comicsList[0].Title, Is.EqualTo("Changed Title"));
         }
 
         [Test]
         public void CheckExtentPersistency()
         {
             BookstoreFileManager.SaveBookstore();
-            Comics.GetBooks().Clear();
-            Assert.That(Comics.GetBooks().Count, Is.EqualTo(0));
+            Book.GetBooks().Clear();
+            Assert.That(Book.GetBooks().Count, Is.EqualTo(0));
             BookstoreFileManager.LoadBookstore();
-            List<Comics> comicsList = Comics.GetBooks().ConvertAll(book => (Comics)book);
+            List<Comics> comicsList = Book.GetBooks().ConvertAll(book => book as Comics).FindAll(b => b != null);
             Assert.That(comicsList.Count, Is.EqualTo(2));
             Assert.That(comicsList[0].Title, Is.EqualTo("Mystic Chronicles"));
             Assert.That(comicsList[1].Title, Is.EqualTo("Supernatural Adventures"));

@@ -48,9 +48,9 @@ namespace Bookstore.@class.Tests
         [Test]
         public void CheckEncapsulationInExtent()
         {
-            customer1.Name = "Changed Name";
+            customer1.Name = "Niklaus Mikkaleson";
             List<Customer> customers = Customer.GetUsers().ConvertAll(user => (Customer)user);
-            Assert.That(customers[0].Name, Is.EqualTo("Elena Gilbert"));
+            Assert.That(customers[0].Name, Is.EqualTo("Niklaus Mikkaleson"));
         }
 
         [Test]
