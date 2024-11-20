@@ -57,9 +57,9 @@ public class Book
         set => listOfLanguagesToWhichTranslated = value ?? new List<string>();
     }
 
-    public Book() // Параметрless конструктор
+    public Book() 
     {
-        ListOfLanguagesToWhichTranslated = new List<string>(); // Инициализируем коллекцию
+        ListOfLanguagesToWhichTranslated = new List<string>(); 
     }
 
     public Book(string title, double price, string languageOfPublication, List<string> listOfLanguagesToWhichTranslated = null)
