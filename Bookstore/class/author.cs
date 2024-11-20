@@ -46,11 +46,11 @@ namespace Bookstore.@class
             set { bio = value; }
         }
 
-        public Author(string firstName, string lastName, string bio = "")
+        public Author(string firstName, string lastName, string bio = null)
         {
             FirstName = firstName;
             LastName = lastName;
-            Bio = bio ?? string.Empty;  
+            Bio = bio; 
             authors.Add(this);
         }
 

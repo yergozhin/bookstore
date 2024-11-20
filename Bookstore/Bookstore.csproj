@@ -21,7 +21,6 @@
     <None Remove="class\userAbstract\" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="class\" />
     <Folder Include="class\bookType\" />
     <Folder Include="class\bookGenre\" />
     <Folder Include="class\userAbstract\" />
