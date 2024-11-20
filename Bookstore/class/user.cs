@@ -85,9 +85,9 @@ namespace Bookstore.@class
         {
             return new List<User>(users);
         }
-        public static void Add(User user)
+        /*public static void Add(User user)
         {
             users.Add(user);
-        }
+        }*/
     }
 }

@@ -47,7 +47,10 @@ namespace Bookstore.@class
         public string PhoneNumber
         {
             get { return phoneNumber; }
-            set { phoneNumber = value; }
+            set {
+                if (phoneNumber == "")
+                    throw new ArgumentException("Invalid phone number.");
+                phoneNumber = value; }
         }
 
         public Publisher(string name, string address, string email, string phoneNumber = null)
@@ -67,9 +70,9 @@ namespace Bookstore.@class
         {
             return new List<Publisher>(publishers);
         }
-        public static void Add(Publisher publisher)
+        /*public static void Add(Publisher publisher)
         {
             publishers.Add(publisher);
-        }
+        }*/
     }
 }

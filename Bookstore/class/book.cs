@@ -56,7 +56,19 @@ public class Book
     public List<string> ListOfLanguagesToWhichTranslated
     {
         get => new List<string>(listOfLanguagesToWhichTranslated);
-        set => listOfLanguagesToWhichTranslated = value ?? new List<string>();
+        set
+        {
+            if(listOfLanguagesToWhichTranslated != null)
+            {
+                for(int i = 0; i < listOfLanguagesToWhichTranslated.Count(); i++)
+                {
+                    if (string.IsNullOrEmpty(listOfLanguagesToWhichTranslated[i])) {
+                        throw new ArgumentException("Translated language cannot be empty.");
+                    }
+                }
+            }
+            listOfLanguagesToWhichTranslated = value ?? new List<string>();
+        }
     }
 
     public Book() 
@@ -81,10 +93,10 @@ public class Book
     {
         return new List<Book>(books);
     }
-    public static void Add(Book book)
+    /*public static void Add(Book book)
     {
         books.Add(book);
-    }
+    }*/
     public void addLanguageToWhichTranslated(string language) {
         if (listOfLanguagesToWhichTranslated.Contains(language))
         {

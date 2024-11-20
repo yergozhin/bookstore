@@ -43,7 +43,14 @@ namespace Bookstore.@class
         public string Bio
         {
             get => bio;
-            set { bio = value; }
+            set
+            {
+                if (value == "")
+                {
+                    throw new ArgumentException("Bio cannot be empty.");
+                }
+                bio = value;
+            }
         }
 
         public Author(string firstName, string lastName, string bio = null)
@@ -62,9 +69,9 @@ namespace Bookstore.@class
         {
             return new List<Author>(authors);
         }
-        public static void Add(Author author)
+        /*public static void Add(Author author)
         {
             authors.Add(author);
-        }
+        }*/
     }
 }

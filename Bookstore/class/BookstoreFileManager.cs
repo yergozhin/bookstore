@@ -65,31 +65,42 @@ namespace Bookstore.@class
                         // Adding loaded books, authors and etc. to static lists
                         foreach (var book in bookstore.Books)
                         {
-                            Book.Add(book);
+                            //Book.Add(book);
+                            Book newBook = new Book(book.Title,book.Price,book.LanguageOfPublication,book.ListOfLanguagesToWhichTranslated);
                         }
                         foreach (var author in bookstore.Authors)
                         {
-                            Author.Add(author);
+                            Author newAuthor = new Author(author.FirstName, author.LastName, author.Bio);
+                            //Author.Add(author);
                         }
                         foreach (var discount in bookstore.Discounts)
                         {
-                            Discount.Add(discount);
+                            Discount newDiscount = new Discount(discount.Type, discount.AmountInPercentage, discount.DeadlineDate);
+                            //Discount.Add(discount);
                         }
                         foreach (var order in bookstore.Orders)
                         {
-                            Order.Add(order);
+                            Order newOrder = new Order(order.OrderDate, order.Status);
+                            for(int i = 0; i < order.Books.Count(); i++)
+                            {
+                                newOrder.addBookToOrder(order.Books[i]);
+                            }
+                            //Order.Add(order);
                         }
                         foreach (var publisher in bookstore.Publishers)
                         {
-                            Publisher.Add(publisher);
+                            Publisher newPublisher = new Publisher(publisher.Name, publisher.Address, publisher.Email, publisher.PhoneNumber);
+                            //Publisher.Add(publisher);
                         }
                         foreach (var review in bookstore.Reviews)
                         {
-                            Review.Add(review);
+                            Review newReview = new Review(review.Rating, review.Comment, review.ReviewDate);
+                            //Review.Add(review);
                         }
                         foreach (var user in bookstore.Users)
                         {
-                            User.Add(user);
+                            User newUser = new User(user.Name, user.PhoneNumber, user.Email, user.DateOfBirth);
+                            //User.Add(user);
                         }
 
                         return true;

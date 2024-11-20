@@ -73,9 +73,9 @@ namespace Bookstore.@class
         {
             return new List<Discount>(discounts);
         }
-        public static void Add(Discount discount)
+        /*public static void Add(Discount discount)
         {
             discounts.Add(discount);
-        }
+        }*/
     }
 }

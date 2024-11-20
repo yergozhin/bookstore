@@ -54,7 +54,13 @@ namespace Bookstore.@class
                 return total;
             }
         }
-
+        public List<Book> Books
+        {
+            get
+            {
+                return new List<Book>(books);
+            }
+        }
 
         public Order(DateTime orderDate, string status)
         {
@@ -73,10 +79,10 @@ namespace Bookstore.@class
         {
             return new List<Order>(orders);
         }
-        public static void Add(Order order)
+        /*public static void Add(Order order)
         {
             orders.Add(order);
-        }
+        }*/
         public void addBookToOrder(Book book)
         {
             totalAmount = totalAmount + (float)book.Price;

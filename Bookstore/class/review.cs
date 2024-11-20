@@ -70,9 +70,9 @@ namespace Bookstore.@class
         {
             return new List<Review>(reviews);
         }
-        public static void Add(Review review)
+        /*public static void Add(Review review)
         {
             reviews.Add(review);
-        }
+        }*/
     }
 }

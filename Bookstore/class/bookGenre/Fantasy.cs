@@ -12,9 +12,9 @@ namespace Bookstore.@class
             get => _magicalCreatures;
             set
             {
-                if (value == null || value.Count == 0)
+                if (value == null || value.Count == 0 || value.Contains(""))
                 {
-                    throw new ArgumentException("You must have at least one magical creature.");
+                    throw new ArgumentException("You must have at least one magical creature. Its name must not be empty");
                 }
                 for(int i = 0; i < value.Count; i++)
                 {
