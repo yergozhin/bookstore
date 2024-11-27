@@ -85,8 +85,16 @@ namespace Bookstore.@class
         }*/
         public void addBookToOrder(Book book)
         {
-            totalAmount = totalAmount + (float)book.Price;
-            books.Add(book);
+            List<Book> _books = Book.GetBooks();
+            foreach(Book b in _books){
+                if(b.Title == book.Title)
+                {
+                    totalAmount = totalAmount + (float)b.Price;
+                    books.Add(b);
+                    return;
+                }
+            }
+            Console.WriteLine("Book with title:", book.Title, "was not found, therefore it is not added to order");
         }
         public void deleteBookFromOrder(Book book)
         {

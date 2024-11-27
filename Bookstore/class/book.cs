@@ -108,4 +108,15 @@ public class Book
         listOfLanguagesToWhichTranslated.Add(language);
     }
 
+    public bool bookPresent(Book book)
+    {
+        foreach(Book b in books)
+        {
+            if(b.title == book.title)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
 }
