@@ -32,6 +32,12 @@ namespace Bookstore.@class.Tests
         }
 
         [Test]
+        public void CheckNullStatusException()
+        {
+            Assert.Throws<ArgumentException>(() => new Order(new DateTime(2024, 11, 1), Is.Null));
+        }
+
+        [Test]
         public void CheckOrderWithValidData()
         {
             Assert.That(order2.OrderDate, Is.EqualTo(new DateTime(2024, 11, 5)));
