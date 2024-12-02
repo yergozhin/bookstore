@@ -40,6 +40,12 @@ namespace Bookstore.@class.Tests
         }
 
         [Test]
+        public void CheckNullLanguageException()
+        {
+            Assert.Throws<ArgumentException>(() => new Book("How to Spot a Vampire", 299.90, Is.Null));
+        }
+
+        [Test]
         public void CheckBookWithoutTranslations()
         {
             Assert.That(book2.Title, Is.EqualTo("The Bennett Book of Spells"));
