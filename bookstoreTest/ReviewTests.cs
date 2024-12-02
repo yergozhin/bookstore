@@ -41,6 +41,12 @@ namespace Bookstore.@class.Tests
         }
 
         [Test]
+        public void CheckNullComment()
+        {
+            Assert.Throws<ArgumentException>(() => new Review(4, Is.Null, new DateTime(2024, 11, 2)));
+        }
+
+        [Test]
         public void CheckReviewWithAnotherData()
         {
             Assert.That(review2.Rating, Is.EqualTo(3));
