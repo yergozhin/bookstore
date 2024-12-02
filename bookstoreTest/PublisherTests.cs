@@ -41,6 +41,18 @@ namespace Bookstore.@class.Tests
         }
 
         [Test]
+        public void CheckEmptyEmail()
+        {
+            Assert.Throws<ArgumentException>(() => new Publisher("Mystic Falls Publishing", "123 Vampire Lane", " "));
+        }
+
+        [Test]
+        public void CheckNullEmail()
+        {
+            Assert.Throws<ArgumentException>(() => new Publisher("Mystic Falls Publishing", "123 Vampire Lane", Is.Null));
+        }
+
+        [Test]
         public void CheckPublisherNoPhone()
         {
             Assert.That(publisher2.Name, Is.EqualTo("Salvatore Books"));
