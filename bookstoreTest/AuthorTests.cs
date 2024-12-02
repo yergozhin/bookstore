@@ -30,7 +30,13 @@ namespace Bookstore.@class.Tests
         {
             Assert.Throws<ArgumentException>(() => new Author("Stefan", "", "Brother of Damon Salvatore"));
         }
-       
+
+        [Test]
+        public void CheckNullBio()
+        {
+            Assert.Throws<ArgumentException>(() => new Author("Morgan", "Bethoven", " "));
+        }
+
         [Test]
         public void CheckAuthorWithoutBio()
         {
