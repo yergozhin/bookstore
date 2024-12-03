@@ -10,6 +10,10 @@ namespace Bookstore.@class
     public class Discount
     {
         private static List<Discount> discounts = new List<Discount>();
+
+        private List<Customer> associatedCustomers = new List<Customer>();
+        public IReadOnlyList<Customer> getAssociatedCustomers() => associatedCustomers.AsReadOnly();
+
         private string type;
         private float amountInPercentage;
         private DateTime deadlineDate;
@@ -77,5 +81,28 @@ namespace Bookstore.@class
         {
             discounts.Add(discount);
         }*/
+        public void addCustomer(Customer customer)
+        {
+            if (!associatedCustomers.Contains(customer))
+            {
+                associatedCustomers.Add(customer);
+                customer.addDiscount(this);
+            }
+        }
+        public void removeCustomer(Customer customer)
+        {
+            if (associatedCustomers.Contains(customer))
+            {
+                associatedCustomers.Remove(customer);
+                customer.removeDiscount(this);
+            }
+        }
+        public void removeAllCustomers()
+        {
+            foreach (Customer customer in associatedCustomers)
+            {
+                removeCustomer(customer);
+            }
+        }
     }
 }
