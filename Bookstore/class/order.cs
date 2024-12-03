@@ -11,6 +11,12 @@ namespace Bookstore.@class
     {
         private static List<Order> orders = new List<Order>();
 
+        private List<Employee> associatedEmployees = new List<Employee>();
+        public IReadOnlyList<Employee> getAssociatedEmployees() => associatedEmployees.AsReadOnly();
+
+        private List<Book> associatedBooks = new List<Book>();
+        public IReadOnlyList<Book> getAssociatedBooks() => associatedBooks.AsReadOnly();
+
         private DateTime orderDate;
         private string status;
         private float totalAmount;
@@ -47,7 +53,7 @@ namespace Bookstore.@class
             get
             {
                 double total = 0;
-                foreach (var book in books)
+                foreach (var book in associatedBooks)
                 {
                     total += book.Price;
                 }
@@ -66,7 +72,7 @@ namespace Bookstore.@class
         {
             OrderDate = orderDate;
             Status = status;
-            books = new List<Book>();
+            //books = new List<Book>();
             totalAmount = 0;
             orders.Add(this);
         }
@@ -105,5 +111,52 @@ namespace Bookstore.@class
             books.Remove(book);
             totalAmount = totalAmount - (float)book.Price;
         }*/
+        public void assignEmployeeWhoProcesses(Employee employee)
+        {
+            if (!associatedEmployees.Contains(employee))
+            {
+                associatedEmployees.Add(employee);
+                employee.assignOrder(this);
+            }
+        }
+        public void removeEmployeeFromProcessing(Employee employee)
+        {
+            if (associatedEmployees.Contains(employee))
+            {
+                associatedEmployees.Remove(employee);
+                employee.removeAssignedOrder(this);
+            }
+        }
+        public void removeAllEmployees()
+        {
+            foreach (Employee employee in associatedEmployees)
+            {
+                removeEmployeeFromProcessing(employee);
+            }
+        }
+
+        public void addBook(Book book)
+        {
+            if (!associatedBooks.Contains(book))
+            {
+                associatedBooks.Add(book);
+                book.assignToOrder(this);
+            }
+        }
+        public void removeBook(Book book)
+        {
+            if (associatedBooks.Contains(book))
+            {
+                associatedBooks.Remove(book);
+                book.removeFromOrder(this);
+            }
+        }
+        public void removeAllBooks()
+        {
+            foreach (Book book in associatedBooks)
+            {
+                removeBook(book);
+            }
+        }
     }
 }

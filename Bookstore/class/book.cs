@@ -8,6 +8,9 @@ public class Book
     private List<Wishlist> associatedWishlists = new List<Wishlist>();
     public IReadOnlyList<Wishlist> getAssociatedWishlists() => associatedWishlists.AsReadOnly();
 
+    private List<Order> associatedOrders = new List<Order>();
+    public IReadOnlyList<Order> getAssociatedOrders() => associatedOrders.AsReadOnly();
+
     private string title;
     private double price;
     private string languageOfPublication;
@@ -144,6 +147,30 @@ public class Book
         foreach(Wishlist wishlist in associatedWishlists)
         {
             removeFromWishlist(wishlist);
+        }
+    }
+
+    public void assignToOrder(Order order)
+    {
+        if (!associatedOrders.Contains(order))
+        {
+            associatedOrders.Add(order);
+            order.addBook(this);
+        }
+    }
+    public void removeFromOrder(Order order)
+    {
+        if (associatedOrders.Contains(order))
+        {
+            associatedOrders.Remove(order);
+            order.removeBook(this);
+        }
+    }
+    public void removeFromAllOrders()
+    {
+        foreach (Order order in associatedOrders)
+        {
+            removeFromOrder(order);
         }
     }
 }
