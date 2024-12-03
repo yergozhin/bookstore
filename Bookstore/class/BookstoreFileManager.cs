@@ -81,10 +81,6 @@ namespace Bookstore.@class
                         foreach (var order in bookstore.Orders)
                         {
                             Order newOrder = new Order(order.OrderDate, order.Status);
-                            for(int i = 0; i < order.Books.Count(); i++)
-                            {
-                                newOrder.addBookToOrder(order.Books[i]);
-                            }
                             //Order.Add(order);
                         }
                         foreach (var publisher in bookstore.Publishers)

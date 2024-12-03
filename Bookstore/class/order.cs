@@ -14,7 +14,7 @@ namespace Bookstore.@class
         private DateTime orderDate;
         private string status;
         private float totalAmount;
-        private List<Book> books;
+        //private List<Book> books;
 
         public DateTime OrderDate
         {
@@ -54,13 +54,13 @@ namespace Bookstore.@class
                 return total;
             }
         }
-        public List<Book> Books
+        /*public List<Book> Books
         {
             get
             {
                 return new List<Book>(books);
             }
-        }
+        }*/
 
         public Order(DateTime orderDate, string status)
         {
@@ -83,9 +83,9 @@ namespace Bookstore.@class
         {
             orders.Add(order);
         }*/
-        public void addBookToOrder(Book book)
+        /*public void addBookToOrder(Book book)
         {
-            List<Book> _books = Book.GetBooks();
+            //List<Book> _books = Book.GetBooks();
             foreach(Book b in _books){
                 if(b.Title == book.Title)
                 {
@@ -95,8 +95,8 @@ namespace Bookstore.@class
                 }
             }
             Console.WriteLine("Book with title:", book.Title, "was not found, therefore it is not added to order");
-        }
-        public void deleteBookFromOrder(Book book)
+        }*/
+        /*public void deleteBookFromOrder(Book book)
         {
             if (!books.Contains(book))
             {
@@ -104,6 +104,6 @@ namespace Bookstore.@class
             }
             books.Remove(book);
             totalAmount = totalAmount - (float)book.Price;
-        }
+        }*/
     }
 }
