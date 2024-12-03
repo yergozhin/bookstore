@@ -5,6 +5,9 @@ public class Book
 {
     private static List<Book> books = new List<Book>();
 
+    private readonly List<Wishlist> associatedWishlists = new List<Wishlist>();
+    public IReadOnlyList<Wishlist> getAssociatedWishlists() => associatedWishlists.AsReadOnly();
+
     private string title;
     private double price;
     private string languageOfPublication;
@@ -118,5 +121,22 @@ public class Book
             }
         }
         return false;
+    }
+
+    public void assignToWishlist(Wishlist wishlist)
+    {
+        if (!associatedWishlists.Contains(wishlist))
+        {
+            associatedWishlists.Add(wishlist);
+            wishlist.addBook(this);
+        }
+    }
+    public void removeFromWishlist(Wishlist wishlist)
+    {
+        if (associatedWishlists.Contains(wishlist))
+        {
+            associatedWishlists.Remove(wishlist);
+            wishlist.removeBook(this);
+        }
     }
 }

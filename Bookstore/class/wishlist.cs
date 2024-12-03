@@ -6,7 +6,8 @@ namespace Bookstore.@class
     [Serializable]
     public class Wishlist
     {
-        private List<Book> booksInWishlist;
+        private readonly List<Book> associatedBooks = new List<Book>();
+        public IReadOnlyList<Book> getAssociatedBooks() => associatedBooks.AsReadOnly();
         private int maxCapacity = 1000;
 
         public int MaxCapacity
@@ -22,15 +23,24 @@ namespace Bookstore.@class
             }
         }
 
-        public List<Book> BooksInWishlist
-        {
-            get => booksInWishlist ?? new List<Book>();
-            set => booksInWishlist = value ?? new List<Book>();
-        }
-
         public Wishlist()
         {
-            booksInWishlist = new List<Book>();
+        }
+        public void addBook(Book book)
+        {
+            if (!associatedBooks.Contains(book))
+            {
+                associatedBooks.Add(book);
+                book.assignToWishlist(this);
+            }
+        }
+        public void removeBook(Book book)
+        {
+            if (associatedBooks.Contains(book))
+            {
+                associatedBooks.Remove(book);
+                book.removeFromWishlist(this);
+            }
         }
     }
 }
