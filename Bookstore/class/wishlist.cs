@@ -6,7 +6,7 @@ namespace Bookstore.@class
     [Serializable]
     public class Wishlist
     {
-        private readonly List<Book> associatedBooks = new List<Book>();
+        private List<Book> associatedBooks = new List<Book>();
         public IReadOnlyList<Book> getAssociatedBooks() => associatedBooks.AsReadOnly();
         private int maxCapacity = 1000;
 
@@ -40,6 +40,13 @@ namespace Bookstore.@class
             {
                 associatedBooks.Remove(book);
                 book.removeFromWishlist(this);
+            }
+        }
+        public void removeAllBooks()
+        {
+            foreach(Book book in associatedBooks)
+            {
+                removeBook(book);
             }
         }
     }

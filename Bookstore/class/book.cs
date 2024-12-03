@@ -5,7 +5,7 @@ public class Book
 {
     private static List<Book> books = new List<Book>();
 
-    private readonly List<Wishlist> associatedWishlists = new List<Wishlist>();
+    private List<Wishlist> associatedWishlists = new List<Wishlist>();
     public IReadOnlyList<Wishlist> getAssociatedWishlists() => associatedWishlists.AsReadOnly();
 
     private string title;
@@ -137,6 +137,13 @@ public class Book
         {
             associatedWishlists.Remove(wishlist);
             wishlist.removeBook(this);
+        }
+    }
+    public void removeFromAllWishlists()
+    {
+        foreach(Wishlist wishlist in associatedWishlists)
+        {
+            removeFromWishlist(wishlist);
         }
     }
 }
