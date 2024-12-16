@@ -14,8 +14,8 @@ namespace Bookstore.@class.Tests
 
         public OrderTests()
         {
-            order1.addBookToOrder(book1);
-            order2.addBookToOrder(book2);
+            //order1.addBookToOrder(book1);
+            //order2.addBookToOrder(book2);
         }
 
         [Test]
