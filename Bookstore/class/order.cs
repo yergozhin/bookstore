@@ -16,6 +16,8 @@ namespace Bookstore.@class
 
         private List<Book> associatedBooks = new List<Book>();
         public IReadOnlyList<Book> getAssociatedBooks() => associatedBooks.AsReadOnly();
+        
+        private Customer associatedCustomer;
 
         private DateTime orderDate;
         private string status;
@@ -58,6 +60,20 @@ namespace Bookstore.@class
                     total += book.Price;
                 }
                 return total;
+            }
+        }
+        
+        public Customer AssociatedCustomer
+        {
+            get => associatedCustomer;
+            //To check with team
+            set
+            {
+                if (value == null)
+                {
+                    throw new ArgumentException("Customer cannot be null.");
+                }
+                associatedCustomer = value;
             }
         }
         /*public List<Book> Books
@@ -156,6 +172,22 @@ namespace Bookstore.@class
             foreach (Book book in associatedBooks)
             {
                 removeBook(book);
+            }
+        }
+        public void assignCustomer(Customer customer)
+        {
+            if (associatedCustomer != null)
+            {
+                associatedCustomer = customer;
+                customer.addOrder(this);
+            }
+        }
+        public void removeFromCustomer(Customer customer)
+        {
+            if (associatedCustomer != null)
+            {
+                AssociatedCustomer = null;
+                customer.removeOrder(this);
             }
         }
     }

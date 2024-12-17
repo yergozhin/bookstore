@@ -9,6 +9,9 @@ namespace Bookstore.@class
         
         private List<Review> associatedReviews = new List<Review>();
         public IReadOnlyList<Review> getAssociatedReviews() => associatedReviews.AsReadOnly();
+        
+        private List<Order> associatedOrders = new List<Order>();
+        public IReadOnlyList<Order> GetAssociatedOrders() => associatedOrders.AsReadOnly();
 
 
         private string _address;
@@ -76,6 +79,30 @@ namespace Bookstore.@class
             foreach (Review review in associatedReviews)
             {
                 removeReview(review);
+            }
+        }
+        
+        public void addOrder(Order order)
+        {
+            if (!associatedOrders.Contains(order))
+            {
+                associatedOrders.Add(order);
+                order.assignCustomer(this);
+            }
+        }
+        public void removeOrder(Order order)
+        {
+            if (associatedOrders.Contains(order))
+            {
+                associatedOrders.Remove(order);
+                order.removeFromCustomer(this);
+            }
+        }
+        public void removeAllOrders()
+        {
+            foreach (Order order in associatedOrders)
+            {
+                removeOrder(order);
             }
         }
     }
