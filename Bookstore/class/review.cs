@@ -123,9 +123,9 @@ namespace Bookstore.@class
         
         public void assignCustomer(Customer customer)
         {
-            if (associatedCustomer != null)
+            if (associatedCustomer == null)
             {
-                associatedCustomer = customer;
+                AssociatedCustomer = customer;
                 customer.addReview(this);
             }
         }
@@ -133,7 +133,7 @@ namespace Bookstore.@class
         {
             if (associatedCustomer != null)
             {
-                AssociatedCustomer = null;
+                associatedCustomer = null;
                 customer.removeReview(this);
             }
         }

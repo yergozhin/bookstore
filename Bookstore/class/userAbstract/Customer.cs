@@ -12,7 +12,8 @@ namespace Bookstore.@class
         
         private List<Order> associatedOrders = new List<Order>();
         public IReadOnlyList<Order> GetAssociatedOrders() => associatedOrders.AsReadOnly();
-
+        
+        private Wishlist associatedWishlist;
 
         private string _address;
         public string Address
@@ -27,7 +28,19 @@ namespace Bookstore.@class
                 _address = value;
             }
         }
-
+        public Wishlist AssociatedWishlist
+        {
+            get => associatedWishlist;
+            //To check with team
+            set
+            {
+                if (value == null)
+                {
+                    throw new ArgumentException("Wishlist cannot be null.");
+                }
+                associatedWishlist = value;
+            }
+        }
         public Customer(string name, string phoneNumber, string email, DateTime dateOfBirth, string address)
             : base(name, phoneNumber, email, dateOfBirth)
         {
@@ -103,6 +116,22 @@ namespace Bookstore.@class
             foreach (Order order in associatedOrders)
             {
                 removeOrder(order);
+            }
+        }
+        public void assignWishlist(Wishlist wishlist)
+        {
+            if (associatedWishlist == null)
+            {
+                AssociatedWishlist = wishlist;
+                wishlist.assignCustomer(this);
+            }
+        }
+        public void removeFromWishlist(Wishlist wishlist)
+        {
+            if (associatedWishlist != null)
+            {
+                associatedWishlist = null;
+                wishlist.removeFromCustomer(this);
             }
         }
     }
