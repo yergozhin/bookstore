@@ -10,6 +10,10 @@ public class Book
 
     private List<Order> associatedOrders = new List<Order>();
     public IReadOnlyList<Order> getAssociatedOrders() => associatedOrders.AsReadOnly();
+    
+    private List<Review> associatedReviews = new List<Review>();
+    public IReadOnlyList<Review> getAssociatedReviews() => associatedReviews.AsReadOnly();
+
 
     private string title;
     private double price;
@@ -171,6 +175,29 @@ public class Book
         foreach (Order order in associatedOrders)
         {
             removeFromOrder(order);
+        }
+    }
+    public void addReview(Review review)
+    {
+        if (!associatedReviews.Contains(review))
+        {
+            associatedReviews.Add(review);
+            review.assignBook(this);
+        }
+    }
+    public void removeReview(Review review)
+    {
+        if (associatedReviews.Contains(review))
+        {
+            associatedReviews.Remove(review);
+            review.removeFromBook(this);
+        }
+    }
+    public void removeAllReviews()
+    {
+        foreach (Review review in associatedReviews)
+        {
+            removeReview(review);
         }
     }
 }

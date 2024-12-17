@@ -10,7 +10,9 @@ namespace Bookstore.@class
     public class Review
     {
         private static List<Review> reviews = new List<Review>();
-
+        
+        private Book associatedBook;
+        
         private int rating;
         private string comment;
         private DateTime reviewDate;
@@ -54,6 +56,19 @@ namespace Bookstore.@class
                 reviewDate = value;
             }
         }
+        public Book AssociatedBook
+        {
+            get => associatedBook;
+            //To check with team
+            set
+            {
+                if (value == null)
+                {
+                    throw new ArgumentException("Book cannot be null.");
+                }
+                associatedBook = value;
+            }
+        }
 
         public Review(int rating, string comment, DateTime reviewDate)
         {
@@ -75,5 +90,21 @@ namespace Bookstore.@class
         {
             reviews.Add(review);
         }*/
+        public void assignBook(Book book)
+        {
+            if (associatedBook != null)
+            {
+                AssociatedBook = book;
+                book.addReview(this);
+            }
+        }
+        public void removeFromBook(Book book)
+        {
+            if (associatedBook != null)
+            {
+                AssociatedBook = null;
+                book.removeReview(this);
+            }
+        }
     }
 }
