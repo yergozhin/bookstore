@@ -12,6 +12,7 @@ namespace Bookstore.@class
         private static List<Review> reviews = new List<Review>();
         
         private Book associatedBook;
+        private Customer associatedCustomer;
         
         private int rating;
         private string comment;
@@ -69,6 +70,19 @@ namespace Bookstore.@class
                 associatedBook = value;
             }
         }
+        public Customer AssociatedCustomer
+        {
+            get => associatedCustomer;
+            //To check with team
+            set
+            {
+                if (value == null)
+                {
+                    throw new ArgumentException("Customer cannot be null.");
+                }
+                associatedCustomer = value;
+            }
+        }
 
         public Review(int rating, string comment, DateTime reviewDate)
         {
@@ -104,6 +118,23 @@ namespace Bookstore.@class
             {
                 AssociatedBook = null;
                 book.removeReview(this);
+            }
+        }
+        
+        public void assignCustomer(Customer customer)
+        {
+            if (associatedCustomer != null)
+            {
+                associatedCustomer = customer;
+                customer.addReview(this);
+            }
+        }
+        public void removeFromCustomer(Customer customer)
+        {
+            if (associatedCustomer != null)
+            {
+                AssociatedCustomer = null;
+                customer.removeReview(this);
             }
         }
     }

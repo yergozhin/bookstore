@@ -13,6 +13,7 @@ public class Book
     
     private List<Review> associatedReviews = new List<Review>();
     public IReadOnlyList<Review> getAssociatedReviews() => associatedReviews.AsReadOnly();
+    
 
 
     private string title;
