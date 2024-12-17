@@ -6,6 +6,9 @@ namespace Bookstore.@class
     {
         private List<Order> associatedOrders = new List<Order>();
         public IReadOnlyList<Order> getAssociatedOrders() => associatedOrders.AsReadOnly();
+        private List<Employee> associatedEmployees = new List<Employee>();
+        public IReadOnlyList<Employee> getAssociatedEmployees() => associatedEmployees.AsReadOnly();
+        private Employee associatedSupervisor = null;
 
         private string _position;
         public string Position
@@ -47,6 +50,38 @@ namespace Bookstore.@class
             foreach (Order order in associatedOrders)
             {
                 removeAssignedOrder(order);
+            }
+        }
+        public void assignEmployee(Employee employee)
+        {
+            if (!associatedEmployees.Contains(employee) && employee != null)
+            {
+                associatedEmployees.Add(employee);
+                employee.assignEmployeeWhoSupervises(this);
+            }
+        }
+        public void removeAssignedEmployee(Employee employee)
+        {
+            if (associatedEmployees.Contains(employee) && employee != null)
+            {
+                associatedEmployees.Remove(employee);
+                employee.removeEmployeeFromSuperviser(this);
+            }
+        }
+        public void assignEmployeeWhoSupervises(Employee employee)
+        {
+            if (associatedSupervisor == null && employee != null)
+            {
+                associatedSupervisor = employee;
+                employee.assignEmployee(this);
+            }
+        }
+        public void removeEmployeeFromSuperviser(Employee employee)
+        {
+            if (associatedSupervisor != null && employee != null)
+            {
+                associatedSupervisor = null;
+                employee.removeAssignedEmployee(this);
             }
         }
     }
