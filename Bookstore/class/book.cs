@@ -22,6 +22,8 @@ public class Book
     private Publisher publisher;
 
     public Publisher Publisher => publisher;
+    
+    private Dictionary<string, Author> authors = new Dictionary<string, Author>();
 
     private string title;
     private double price;
