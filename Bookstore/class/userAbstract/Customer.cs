@@ -118,7 +118,7 @@ namespace Bookstore.@class
             if (associatedOrders.Contains(order))
             {
                 associatedOrders.Remove(order);
-                order.removeFromCustomer(); // Вызов без аргументов
+                order.removeFromCustomer(); 
             }
         }
 

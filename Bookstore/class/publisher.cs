@@ -13,7 +13,7 @@ namespace Bookstore.@class
         private string email;
         private string phoneNumber;
 
-        private List<Book> publishedBooks = new List<Book>(); // Ассоциация с книгами
+        private List<Book> publishedBooks = new List<Book>(); 
 
         public IReadOnlyList<Book> PublishedBooks => publishedBooks.AsReadOnly();
 
@@ -75,7 +75,6 @@ namespace Bookstore.@class
             return new List<Publisher>(publishers);
         }
 
-        // --- Методы управления ассоциацией с книгами ---
         public void AddBook(Book book)
         {
             if (book == null)
@@ -84,7 +83,7 @@ namespace Bookstore.@class
             if (!publishedBooks.Contains(book))
             {
                 publishedBooks.Add(book);
-                book.AssignPublisher(this); // Обратная связь
+                book.AssignPublisher(this); 
             }
         }
 
@@ -96,7 +95,7 @@ namespace Bookstore.@class
             if (publishedBooks.Contains(book))
             {
                 publishedBooks.Remove(book);
-                book.RemovePublisher(); // Обратная связь
+                book.RemovePublisher(); 
             }
         }
 

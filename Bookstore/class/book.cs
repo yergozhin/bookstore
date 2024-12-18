@@ -16,14 +16,14 @@ public class Book
     private List<Review> associatedReviews = new List<Review>();
     public IReadOnlyList<Review> getAssociatedReviews() => associatedReviews.AsReadOnly();
 
-    private Author assignedAuthor; // Ассоциация с автором
+    private Author assignedAuthor;
     public Author AssignedAuthor => assignedAuthor;
 
     private Publisher publisher;
 
     public Publisher Publisher => publisher;
     
-    private Dictionary<string, Author> authors = new Dictionary<string, Author>();
+    private Dictionary<string, Author> usernameAuthorMap = new Dictionary<string, Author>();
 
     private string title;
     private double price;
@@ -211,7 +211,6 @@ public class Book
         }
     }
 
-    // --- Методы для связи с автором ---
     public void AssignAuthor(Author author)
     {
         if (author == null)
@@ -220,7 +219,7 @@ public class Book
         if (assignedAuthor != author)
         {
             assignedAuthor = author;
-            author.AddBook(this); // Обратная связь
+            author.AddBook(this); 
         }
     }
 
@@ -230,7 +229,7 @@ public class Book
         {
             var tempAuthor = assignedAuthor;
             assignedAuthor = null;
-            tempAuthor.RemoveBook(this); // Обратная связь
+            tempAuthor.RemoveBook(this); 
         }
     }
 
@@ -245,7 +244,7 @@ public class Book
         if (publisher != newPublisher)
         {
             publisher = newPublisher;
-            newPublisher.AddBook(this); // Обратная связь
+            newPublisher.AddBook(this); 
         }
     }
 
@@ -255,7 +254,7 @@ public class Book
         {
             var tempPublisher = publisher;
             publisher = null;
-            tempPublisher.RemoveBook(this); // Обратная связь
+            tempPublisher.RemoveBook(this); 
         }
     }
 }

@@ -44,7 +44,6 @@ namespace Bookstore.@class
         {
         }
 
-        // --- Методы для управления книгами ---
         public void AddBook(Book book)
         {
             if (book == null)
@@ -56,7 +55,7 @@ namespace Bookstore.@class
             if (!associatedBooks.Contains(book))
             {
                 associatedBooks.Add(book);
-                book.assignToWishlist(this); // Обратная связь
+                book.assignToWishlist(this); 
             }
         }
 
@@ -68,7 +67,7 @@ namespace Bookstore.@class
             if (associatedBooks.Contains(book))
             {
                 associatedBooks.Remove(book);
-                book.removeFromWishlist(this); // Обратная связь
+                book.removeFromWishlist(this); 
             }
         }
 
@@ -88,7 +87,6 @@ namespace Bookstore.@class
             }
         }
 
-        // --- Методы для управления клиентом ---
         public void AssignCustomer(Customer customer)
         {
             if (customer == null)
@@ -97,7 +95,7 @@ namespace Bookstore.@class
             if (associatedCustomer != customer)
             {
                 associatedCustomer = customer;
-                customer.assignWishlist(this); // Обратная связь
+                customer.assignWishlist(this); 
             }
         }
 
@@ -107,7 +105,7 @@ namespace Bookstore.@class
             {
                 var tempCustomer = associatedCustomer;
                 associatedCustomer = null;
-                tempCustomer.removeFromWishlist(this); // Обратная связь
+                tempCustomer.removeFromWishlist(this); 
             }
         }
     }

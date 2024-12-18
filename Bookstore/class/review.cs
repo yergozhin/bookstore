@@ -155,7 +155,6 @@ namespace Bookstore.@class
             }
         }
 
-        // --- Метод обновления книги ---
         public void updateBook(Book newBook)
         {
             if (newBook == null)

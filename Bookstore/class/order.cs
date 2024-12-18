@@ -67,7 +67,6 @@ namespace Bookstore.@class
         public Customer AssociatedCustomer
         {
             get => associatedCustomer;
-            //To check with team
             set
             {
                 if (value == null)

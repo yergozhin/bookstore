@@ -93,7 +93,6 @@ namespace Bookstore.@class
             return new List<User>(users);
         }
 
-        // --- Метод для поиска пользователя ---
         public static User FindUser(string searchTerm)
         {
             return users.Find(user =>
@@ -102,7 +101,6 @@ namespace Bookstore.@class
                 user.PhoneNumber.Equals(searchTerm, StringComparison.OrdinalIgnoreCase));
         }
 
-        // --- Метод для обновления данных ---
         public void UpdateUser(string newName = null, string newPhoneNumber = null, string newEmail = null,
             DateTime? newDateOfBirth = null)
         {
