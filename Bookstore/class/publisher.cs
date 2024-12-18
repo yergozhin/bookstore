@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Xml;
-using System.Xml.Serialization;
 
 namespace Bookstore.@class
 {
@@ -15,6 +12,10 @@ namespace Bookstore.@class
         private string address;
         private string email;
         private string phoneNumber;
+
+        private List<Book> publishedBooks = new List<Book>(); // Ассоциация с книгами
+
+        public IReadOnlyList<Book> PublishedBooks => publishedBooks.AsReadOnly();
 
         public string Name
         {
@@ -47,10 +48,12 @@ namespace Bookstore.@class
         public string PhoneNumber
         {
             get { return phoneNumber; }
-            set {
-                if (phoneNumber == "")
+            set
+            {
+                if (string.IsNullOrEmpty(value))
                     throw new ArgumentException("Invalid phone number.");
-                phoneNumber = value; }
+                phoneNumber = value;
+            }
         }
 
         public Publisher(string name, string address, string email, string phoneNumber = null)
@@ -66,13 +69,41 @@ namespace Bookstore.@class
         {
             publishers.Clear();
         }
+
         public static List<Publisher> GetPublishers()
         {
             return new List<Publisher>(publishers);
         }
-        /*public static void Add(Publisher publisher)
+
+        // --- Методы управления ассоциацией с книгами ---
+        public void AddBook(Book book)
         {
-            publishers.Add(publisher);
-        }*/
+            if (book == null)
+                throw new ArgumentException("Book cannot be null.");
+
+            if (!publishedBooks.Contains(book))
+            {
+                publishedBooks.Add(book);
+                book.AssignPublisher(this); // Обратная связь
+            }
+        }
+
+        public void RemoveBook(Book book)
+        {
+            if (book == null)
+                throw new ArgumentException("Book cannot be null.");
+
+            if (publishedBooks.Contains(book))
+            {
+                publishedBooks.Remove(book);
+                book.RemovePublisher(); // Обратная связь
+            }
+        }
+
+        public void UpdateBook(Book oldBook, Book newBook)
+        {
+            RemoveBook(oldBook);
+            AddBook(newBook);
+        }
     }
 }

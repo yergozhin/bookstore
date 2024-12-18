@@ -23,7 +23,7 @@ namespace Bookstore.@class
             get => type;
             set
             {
-                if(value != "Single Use" && value != "Multiple Use")
+                if (value != "Single Use" && value != "Multiple Use")
                 {
                     throw new ArgumentException("Type must be either Single Use or Multiple Use");
                 }

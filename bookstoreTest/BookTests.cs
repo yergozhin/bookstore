@@ -7,8 +7,21 @@ namespace Bookstore.@class.Tests
 {
     public class BookTests
     {
-        private readonly Book book1 = new Book("How to Spot a Vampire", 299.90, "English", new List<string> { "Latin", "Italian" });
-        private readonly Book book2 = new Book("The Bennett Book of Spells", 155, "English");
+        private Book book1;
+        private Book book2;
+        private Author author;
+
+        [SetUp]
+        public void SetUp()
+        {
+            Book.ClearBooks();
+            Author.ClearAuthors();
+
+            book1 = new Book("How to Spot a Vampire", 299.90, "English", new List<string> { "Latin", "Italian" });
+            book2 = new Book("The Bennett Book of Spells", 155, "English");
+
+            author = new Author("Bonnie", "Bennett", "Powerful witch");
+        }
 
         [Test]
         public void CheckBookAttributes()
@@ -42,7 +55,7 @@ namespace Bookstore.@class.Tests
         [Test]
         public void CheckNullLanguageException()
         {
-            Assert.Throws<ArgumentException>(() => new Book("How to Spot a Vampire", 299.90, Is.Null));
+            Assert.Throws<ArgumentException>(() => new Book("How to Spot a Vampire", 299.90, null));
         }
 
         [Test]
@@ -72,6 +85,25 @@ namespace Bookstore.@class.Tests
         }
 
         [Test]
+        public void CheckAssignAuthor_ShouldSetReverseConnection()
+        {
+            book1.AssignAuthor(author);
+
+            Assert.That(book1.AssignedAuthor, Is.EqualTo(author));
+            Assert.That(author.AuthoredBooks.Contains(book1), Is.True);
+        }
+
+        [Test]
+        public void CheckRemoveAuthor_ShouldClearReverseConnection()
+        {
+            book1.AssignAuthor(author);
+            book1.RemoveAuthor();
+
+            Assert.That(book1.AssignedAuthor, Is.Null);
+            Assert.That(author.AuthoredBooks.Contains(book1), Is.False);
+        }
+
+        [Test]
         public void CheckExtentPersistency()
         {
             BookstoreFileManager.SaveBookstore();
@@ -80,8 +112,16 @@ namespace Bookstore.@class.Tests
             BookstoreFileManager.LoadBookstore();
             List<Book> books = Book.GetBooks();
             Assert.That(books.Count, Is.EqualTo(2));
-            Assert.That(books[0].Title, Is.EqualTo("Changed Title"));
+            Assert.That(books[0].Title, Is.EqualTo("How to Spot a Vampire"));
             Assert.That(books[1].Title, Is.EqualTo("The Bennett Book of Spells"));
+        }
+
+        [Test]
+        public void CheckDuplicateBookNotAdded()
+        {
+            Book duplicateBook = new Book("How to Spot a Vampire", 299.90, "English");
+            List<Book> books = Book.GetBooks();
+            Assert.That(books.Count, Is.EqualTo(3)); // book1, book2, duplicate
         }
     }
 }

@@ -174,21 +174,25 @@ namespace Bookstore.@class
                 removeBook(book);
             }
         }
+
         public void assignCustomer(Customer customer)
         {
             if (associatedCustomer == null)
             {
                 AssociatedCustomer = customer;
-                customer.addOrder(this);
+                customer.addOrder(this); 
             }
         }
-        public void removeFromCustomer(Customer customer)
+
+        public void removeFromCustomer()
         {
             if (associatedCustomer != null)
             {
+                var tempCustomer = associatedCustomer; 
                 associatedCustomer = null;
-                customer.removeOrder(this);
+                tempCustomer.removeOrder(this);
             }
         }
+
     }
 }

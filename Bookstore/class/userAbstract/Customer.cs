@@ -84,7 +84,7 @@ namespace Bookstore.@class
             if (associatedReviews.Contains(review))
             {
                 associatedReviews.Remove(review);
-                review.removeFromCustomer(this);
+                review.removeFromCustomer(); 
             }
         }
         public void removeAllReviews()
@@ -108,7 +108,7 @@ namespace Bookstore.@class
             if (associatedOrders.Contains(order))
             {
                 associatedOrders.Remove(order);
-                order.removeFromCustomer(this);
+                order.removeFromCustomer(); // Вызов без аргументов
             }
         }
         public void removeAllOrders()
@@ -123,7 +123,7 @@ namespace Bookstore.@class
             if (associatedWishlist == null)
             {
                 AssociatedWishlist = wishlist;
-                wishlist.assignCustomer(this);
+                wishlist.AssignCustomer(this);
             }
         }
         public void removeFromWishlist(Wishlist wishlist)
@@ -131,8 +131,9 @@ namespace Bookstore.@class
             if (associatedWishlist != null)
             {
                 associatedWishlist = null;
-                wishlist.removeFromCustomer(this);
+                wishlist.RemoveFromCustomer(); 
             }
         }
+
     }
 }

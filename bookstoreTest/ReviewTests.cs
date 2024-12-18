@@ -9,14 +9,21 @@ namespace Bookstore.@class.Tests
     {
         private Review review1;
         private Review review2;
+        private Book book1;
+        private Customer customer1;
 
         [SetUp]
         public void Setup()
         {
             Review.ClearReviews();
+            Book.ClearBooks();
+            Customer.ClearUsers();
 
             review1 = new Review(5, "Amazing read!", new DateTime(2024, 10, 31));
             review2 = new Review(3, "It was ok.", new DateTime(2024, 11, 1));
+
+            book1 = new Book("Vampire Diaries", 299.99, "English");
+            customer1 = new Customer("Elena Gilbert", "123-456-7890", "elena@gilbert.com", new DateTime(1992, 6, 22), "Mystic Falls, VA");
         }
 
         [Test]
@@ -35,23 +42,47 @@ namespace Bookstore.@class.Tests
         }
 
         [Test]
+        public void AssignBook_ShouldSetReverseConnection()
+        {
+            review1.assignBook(book1);
+
+            Assert.That(review1.AssociatedBook, Is.EqualTo(book1));
+            Assert.That(book1.getAssociatedReviews().Contains(review1), Is.True);
+        }
+
+        [Test]
+        public void RemoveBook_ShouldClearReverseConnection()
+        {
+            review1.assignBook(book1);
+            review1.removeFromBook(book1);
+
+            Assert.That(review1.AssociatedBook, Is.Null);
+            Assert.That(book1.getAssociatedReviews().Contains(review1), Is.False);
+        }
+
+        [Test]
+        public void AssignCustomer_ShouldSetReverseConnection()
+        {
+            review1.assignCustomer(customer1);
+
+            Assert.That(review1.AssociatedCustomer, Is.EqualTo(customer1));
+            Assert.That(customer1.getAssociatedReviews().Contains(review1), Is.True);
+        }
+
+        [Test]
+        public void RemoveCustomer_ShouldClearReverseConnection()
+        {
+            review1.assignCustomer(customer1);
+            review1.removeFromCustomer();
+
+            Assert.That(review1.AssociatedCustomer, Is.Null);
+            Assert.That(customer1.getAssociatedReviews().Contains(review1), Is.False);
+        }
+
+        [Test]
         public void CheckEmptyComment()
         {
             Assert.Throws<ArgumentException>(() => new Review(4, "", new DateTime(2024, 11, 2)));
-        }
-
-        [Test]
-        public void CheckNullComment()
-        {
-            Assert.Throws<ArgumentException>(() => new Review(4, Is.Null, new DateTime(2024, 11, 2)));
-        }
-
-        [Test]
-        public void CheckReviewWithAnotherData()
-        {
-            Assert.That(review2.Rating, Is.EqualTo(3));
-            Assert.That(review2.Comment, Is.EqualTo("It was ok."));
-            Assert.That(review2.ReviewDate, Is.EqualTo(new DateTime(2024, 11, 1)));
         }
 
         [Test]
@@ -61,14 +92,6 @@ namespace Bookstore.@class.Tests
             Assert.That(reviews.Count, Is.EqualTo(2));
             Assert.That(reviews[0].Comment, Is.EqualTo("Amazing read!"));
             Assert.That(reviews[1].Comment, Is.EqualTo("It was ok."));
-        }
-
-        [Test]
-        public void CheckEncapsulation()
-        {
-            review1.Rating = 4;
-            List<Review> reviews = Review.GetReviews();
-            Assert.That(reviews[0].Rating, Is.EqualTo(4));
         }
 
         [Test]

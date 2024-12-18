@@ -1,4 +1,6 @@
 ﻿using Bookstore.@class;
+using System;
+using System.Collections.Generic;
 
 [Serializable]
 public class Book
@@ -10,11 +12,16 @@ public class Book
 
     private List<Order> associatedOrders = new List<Order>();
     public IReadOnlyList<Order> getAssociatedOrders() => associatedOrders.AsReadOnly();
-    
+
     private List<Review> associatedReviews = new List<Review>();
     public IReadOnlyList<Review> getAssociatedReviews() => associatedReviews.AsReadOnly();
-    
 
+    private Author assignedAuthor; // Ассоциация с автором
+    public Author AssignedAuthor => assignedAuthor;
+
+    private Publisher publisher;
+
+    public Publisher Publisher => publisher;
 
     private string title;
     private double price;
@@ -69,11 +76,12 @@ public class Book
         get => new List<string>(listOfLanguagesToWhichTranslated);
         set
         {
-            if(listOfLanguagesToWhichTranslated != null)
+            if (listOfLanguagesToWhichTranslated != null)
             {
-                for(int i = 0; i < listOfLanguagesToWhichTranslated.Count(); i++)
+                for (int i = 0; i < listOfLanguagesToWhichTranslated.Count; i++)
                 {
-                    if (string.IsNullOrEmpty(listOfLanguagesToWhichTranslated[i])) {
+                    if (string.IsNullOrEmpty(listOfLanguagesToWhichTranslated[i]))
+                    {
                         throw new ArgumentException("Translated language cannot be empty.");
                     }
                 }
@@ -82,9 +90,9 @@ public class Book
         }
     }
 
-    public Book() 
+    public Book()
     {
-        ListOfLanguagesToWhichTranslated = new List<string>(); 
+        ListOfLanguagesToWhichTranslated = new List<string>();
     }
 
     public Book(string title, double price, string languageOfPublication, List<string> listOfLanguagesToWhichTranslated = null)
@@ -104,16 +112,15 @@ public class Book
     {
         return new List<Book>(books);
     }
-    /*public static void Add(Book book)
+
+    public void addLanguageToWhichTranslated(string language)
     {
-        books.Add(book);
-    }*/
-    public void addLanguageToWhichTranslated(string language) {
         if (listOfLanguagesToWhichTranslated.Contains(language))
         {
             return;
         }
-        if (string.IsNullOrEmpty(language)) {
+        if (string.IsNullOrEmpty(language))
+        {
             throw new ArgumentException("Language to which the book was translated cannot be empty.");
         }
         listOfLanguagesToWhichTranslated.Add(language);
@@ -121,9 +128,9 @@ public class Book
 
     public bool bookPresent(Book book)
     {
-        foreach(Book b in books)
+        foreach (Book b in books)
         {
-            if(b.title == book.title)
+            if (b.title == book.title)
             {
                 return true;
             }
@@ -139,6 +146,7 @@ public class Book
             wishlist.addBook(this);
         }
     }
+
     public void removeFromWishlist(Wishlist wishlist)
     {
         if (associatedWishlists.Contains(wishlist))
@@ -147,9 +155,10 @@ public class Book
             wishlist.removeBook(this);
         }
     }
+
     public void removeFromAllWishlists()
     {
-        foreach(Wishlist wishlist in associatedWishlists)
+        foreach (Wishlist wishlist in associatedWishlists)
         {
             removeFromWishlist(wishlist);
         }
@@ -163,6 +172,7 @@ public class Book
             order.addBook(this);
         }
     }
+
     public void removeFromOrder(Order order)
     {
         if (associatedOrders.Contains(order))
@@ -171,6 +181,7 @@ public class Book
             order.removeBook(this);
         }
     }
+
     public void removeFromAllOrders()
     {
         foreach (Order order in associatedOrders)
@@ -178,6 +189,7 @@ public class Book
             removeFromOrder(order);
         }
     }
+
     public void addReview(Review review)
     {
         if (!associatedReviews.Contains(review))
@@ -186,6 +198,7 @@ public class Book
             review.assignBook(this);
         }
     }
+
     public void removeReview(Review review)
     {
         if (associatedReviews.Contains(review))
@@ -194,11 +207,60 @@ public class Book
             review.removeFromBook(this);
         }
     }
+
     public void removeAllReviews()
     {
         foreach (Review review in associatedReviews)
         {
             removeReview(review);
+        }
+    }
+
+    // --- Методы для связи с автором ---
+    public void AssignAuthor(Author author)
+    {
+        if (author == null)
+            throw new ArgumentException("Author cannot be null.");
+
+        if (assignedAuthor != author)
+        {
+            assignedAuthor = author;
+            author.AddBook(this); // Обратная связь
+        }
+    }
+
+    public void RemoveAuthor()
+    {
+        if (assignedAuthor != null)
+        {
+            var tempAuthor = assignedAuthor;
+            assignedAuthor = null;
+            tempAuthor.RemoveBook(this); // Обратная связь
+        }
+    }
+
+    public void UpdateAuthor(Author newAuthor)
+    {
+        RemoveAuthor();
+        AssignAuthor(newAuthor);
+    }
+
+    public void AssignPublisher(Publisher newPublisher)
+    {
+        if (publisher != newPublisher)
+        {
+            publisher = newPublisher;
+            newPublisher.AddBook(this); // Обратная связь
+        }
+    }
+
+    public void RemovePublisher()
+    {
+        if (publisher != null)
+        {
+            var tempPublisher = publisher;
+            publisher = null;
+            tempPublisher.RemoveBook(this); // Обратная связь
         }
     }
 }

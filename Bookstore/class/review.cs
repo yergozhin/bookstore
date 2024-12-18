@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Xml;
-using System.Xml.Serialization;
 
 namespace Bookstore.@class
 {
@@ -10,10 +7,10 @@ namespace Bookstore.@class
     public class Review
     {
         private static List<Review> reviews = new List<Review>();
-        
+
         private Book associatedBook;
         private Customer associatedCustomer;
-        
+
         private int rating;
         private string comment;
         private DateTime reviewDate;
@@ -47,7 +44,6 @@ namespace Bookstore.@class
         public DateTime ReviewDate
         {
             get => reviewDate;
-            //To check with team
             set
             {
                 if (DateTime.Today < value)
@@ -57,10 +53,10 @@ namespace Bookstore.@class
                 reviewDate = value;
             }
         }
+
         public Book AssociatedBook
         {
             get => associatedBook;
-            //To check with team
             set
             {
                 if (value == null)
@@ -70,10 +66,10 @@ namespace Bookstore.@class
                 associatedBook = value;
             }
         }
+
         public Customer AssociatedCustomer
         {
             get => associatedCustomer;
-            //To check with team
             set
             {
                 if (value == null)
@@ -96,46 +92,88 @@ namespace Bookstore.@class
         {
             reviews.Clear();
         }
+
         public static List<Review> GetReviews()
         {
             return new List<Review>(reviews);
         }
-        /*public static void Add(Review review)
-        {
-            reviews.Add(review);
-        }*/
+
         public void assignBook(Book book)
         {
-            if (associatedBook != null)
+            if (book == null)
+                throw new ArgumentException("Book cannot be null.");
+
+            if (associatedBook != book)
             {
-                AssociatedBook = book;
-                book.addReview(this);
+                associatedBook = book;
+                if (!book.getAssociatedReviews().Contains(this))
+                {
+                    book.addReview(this);
+                }
             }
         }
+
         public void removeFromBook(Book book)
         {
-            if (associatedBook != null)
+            if (book == null)
+                throw new ArgumentException("Book cannot be null.");
+
+            if (associatedBook == book)
             {
-                AssociatedBook = null;
-                book.removeReview(this);
+                associatedBook = null;
+                if (book.getAssociatedReviews().Contains(this))
+                {
+                    book.removeReview(this);
+                }
             }
         }
-        
+
         public void assignCustomer(Customer customer)
         {
+            if (customer == null)
+                throw new ArgumentException("Customer cannot be null.");
+
             if (associatedCustomer == null)
             {
-                AssociatedCustomer = customer;
+                associatedCustomer = customer;
                 customer.addReview(this);
             }
         }
-        public void removeFromCustomer(Customer customer)
+
+        public void removeFromCustomer()
         {
             if (associatedCustomer != null)
             {
+                var tempCustomer = associatedCustomer;
                 associatedCustomer = null;
-                customer.removeReview(this);
+                tempCustomer.removeReview(this);
             }
+        }
+
+        // --- Метод обновления книги ---
+        public void updateBook(Book newBook)
+        {
+            if (newBook == null)
+                throw new ArgumentException("New book cannot be null.");
+
+            if (associatedBook != null)
+            {
+                removeFromBook(associatedBook);
+            }
+            assignBook(newBook);
+        }
+
+        // --- Метод обновления клиента ---
+        public void updateCustomer(Customer newCustomer)
+        {
+            if (newCustomer == null)
+                throw new ArgumentException("New customer cannot be null.");
+
+            if (associatedCustomer != null)
+            {
+                removeFromCustomer();
+            }
+            assignCustomer(newCustomer);
         }
     }
 }

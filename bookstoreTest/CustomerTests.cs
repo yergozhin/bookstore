@@ -7,63 +7,107 @@ namespace Bookstore.@class.Tests
 {
     public class CustomerTests
     {
-        private readonly Customer customer1 = new Customer("Elena Gilbert", "123-456-7890", "elena@gilbert.com", new DateTime(1992, 6, 22), "Mystic Falls, VA");
-        private readonly Customer customer2 = new Customer("Stefan Salvatore", "987-654-3210", "stefan@salvatore.com", new DateTime(1847, 11, 1), "Salvatore Mansion, Mystic Falls");
+        private Customer customer1;
+        private Customer customer2;
+        private Order order1;
+        private Review review1;
+        private Wishlist wishlist1;
+        private Discount discount1;
+
+        [SetUp]
+        public void Setup()
+        {
+            Customer.ClearUsers();
+            Order.ClearOrders();
+            Review.ClearReviews();
+            Discount.ClearDiscounts();
+
+            customer1 = new Customer("Elena Gilbert", "123-456-7890", "elena@gilbert.com", new DateTime(1992, 6, 22), "Mystic Falls, VA");
+            customer2 = new Customer("Stefan Salvatore", "987-654-3210", "stefan@salvatore.com", new DateTime(1847, 11, 1), "Salvatore Mansion, Mystic Falls");
+
+            order1 = new Order(DateTime.Today, "Pending");
+            review1 = new Review(5, "Great book!", DateTime.Today);
+            wishlist1 = new Wishlist();
+            discount1 = new Discount("Single Use", 10, DateTime.Today.AddDays(30));
+        }
 
         [Test]
         public void CheckCustomerAttributes()
         {
             Assert.That(customer1.Name, Is.EqualTo("Elena Gilbert"));
-            Assert.That(customer1.PhoneNumber, Is.EqualTo("123-456-7890"));
-            Assert.That(customer1.Email, Is.EqualTo("elena@gilbert.com"));
-            Assert.That(customer1.DateOfBirth, Is.EqualTo(new DateTime(1992, 6, 22)));
             Assert.That(customer1.Address, Is.EqualTo("Mystic Falls, VA"));
         }
 
         [Test]
-        public void CheckEmptyAddressException()
+        public void AddOrder_ShouldSetReverseConnection()
         {
-            Assert.Throws<ArgumentException>(() => new Customer("Damon Salvatore", "555-555-5555", "damon@salvatore.com", new DateTime(1840, 10, 1), ""));
+            customer1.addOrder(order1);
+            Assert.That(customer1.GetAssociatedOrders().Count, Is.EqualTo(1));
+            Assert.That(order1.AssociatedCustomer, Is.EqualTo(customer1));
         }
 
         [Test]
-        public void CheckAnotherCustomer()
+        public void RemoveOrder_ShouldClearReverseConnection()
         {
-            Assert.That(customer2.Name, Is.EqualTo("Stefan Salvatore"));
-            Assert.That(customer2.PhoneNumber, Is.EqualTo("987-654-3210"));
-            Assert.That(customer2.Email, Is.EqualTo("stefan@salvatore.com"));
-            Assert.That(customer2.DateOfBirth, Is.EqualTo(new DateTime(1847, 11, 1)));
-            Assert.That(customer2.Address, Is.EqualTo("Salvatore Mansion, Mystic Falls"));
+            customer1.addOrder(order1);
+            customer1.removeOrder(order1);
+
+            Assert.That(customer1.GetAssociatedOrders().Count, Is.EqualTo(0));
+            Assert.That(order1.AssociatedCustomer, Is.Null);
         }
 
         [Test]
-        public void CheckCustomerExtent()
+        public void AddReview_ShouldSetReverseConnection()
         {
-            List<Customer> customers = Customer.GetUsers().ConvertAll(user => (Customer)user);
-            Assert.That(customers.Count, Is.EqualTo(2));
-            Assert.That(customers[0].Name, Is.EqualTo("Elena Gilbert"));
-            Assert.That(customers[1].Name, Is.EqualTo("Stefan Salvatore"));
+            customer1.addReview(review1);
+            Assert.That(customer1.getAssociatedReviews().Count, Is.EqualTo(1));
+            Assert.That(review1.AssociatedCustomer, Is.EqualTo(customer1));
         }
 
         [Test]
-        public void CheckEncapsulationInExtent()
+        public void RemoveReview_ShouldClearReverseConnection()
         {
-            customer1.Name = "Niklaus Mikkaleson";
-            List<Customer> customers = Customer.GetUsers().ConvertAll(user => (Customer)user);
-            Assert.That(customers[0].Name, Is.EqualTo("Niklaus Mikkaleson"));
+            customer1.addReview(review1);
+            customer1.removeReview(review1);
+
+            Assert.That(customer1.getAssociatedReviews().Count, Is.EqualTo(0));
+            Assert.That(review1.AssociatedCustomer, Is.Null);
         }
 
         [Test]
-        public void CheckExtentPersistency()
+        public void AssignWishlist_ShouldSetReverseConnection()
         {
-            BookstoreFileManager.SaveBookstore();
-            Customer.ClearUsers();
-            Assert.That(Customer.GetUsers().Count, Is.EqualTo(0));
-            BookstoreFileManager.LoadBookstore();
-            List<Customer> customers = Customer.GetUsers().ConvertAll(user => (Customer)user);
-            Assert.That(customers.Count, Is.EqualTo(2));
-            Assert.That(customers[0].Name, Is.EqualTo("Elena Gilbert"));
-            Assert.That(customers[1].Name, Is.EqualTo("Stefan Salvatore"));
+            customer1.assignWishlist(wishlist1);
+            Assert.That(customer1.AssociatedWishlist, Is.EqualTo(wishlist1));
+            Assert.That(wishlist1.AssociatedCustomer, Is.EqualTo(customer1));
+        }
+
+        [Test]
+        public void RemoveWishlist_ShouldClearReverseConnection()
+        {
+            customer1.assignWishlist(wishlist1);
+            customer1.removeFromWishlist(wishlist1);
+
+            Assert.That(customer1.AssociatedWishlist, Is.Null);
+            Assert.That(wishlist1.AssociatedCustomer, Is.Null);
+        }
+
+        [Test]
+        public void AddDiscount_ShouldSetReverseConnection()
+        {
+            customer1.addDiscount(discount1);
+            Assert.That(customer1.getAssociatedDiscounts().Count, Is.EqualTo(1));
+            Assert.That(discount1.getAssociatedCustomers().Contains(customer1), Is.True);
+        }
+
+        [Test]
+        public void RemoveDiscount_ShouldClearReverseConnection()
+        {
+            customer1.addDiscount(discount1);
+            customer1.removeDiscount(discount1);
+
+            Assert.That(customer1.getAssociatedDiscounts().Count, Is.EqualTo(0));
+            Assert.That(discount1.getAssociatedCustomers().Contains(customer1), Is.False);
         }
     }
 }

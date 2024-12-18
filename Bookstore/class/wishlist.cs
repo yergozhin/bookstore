@@ -7,7 +7,8 @@ namespace Bookstore.@class
     public class Wishlist
     {
         private List<Book> associatedBooks = new List<Book>();
-        public IReadOnlyList<Book> getAssociatedBooks() => associatedBooks.AsReadOnly();
+        public IReadOnlyList<Book> GetAssociatedBooks() => associatedBooks.AsReadOnly();
+
         private Customer associatedCustomer;
         private int maxCapacity = 1000;
 
@@ -23,10 +24,10 @@ namespace Bookstore.@class
                 maxCapacity = value;
             }
         }
+
         public Customer AssociatedCustomer
         {
             get => associatedCustomer;
-            //To check with team
             set
             {
                 if (value == null)
@@ -37,47 +38,101 @@ namespace Bookstore.@class
             }
         }
 
-        public Wishlist()
+        public Wishlist() { }
+
+        // --- Методы для управления книгами ---
+        public void AddBook(Book book)
         {
-        }
-        public void addBook(Book book)
-        {
+            if (book == null)
+                throw new ArgumentException("Book cannot be null.");
+
+            if (associatedBooks.Count >= maxCapacity)
+                throw new InvalidOperationException("Wishlist has reached its maximum capacity.");
+
             if (!associatedBooks.Contains(book))
             {
                 associatedBooks.Add(book);
-                book.assignToWishlist(this);
+                book.assignToWishlist(this); // Обратная связь
             }
         }
-        public void removeBook(Book book)
+
+        public void RemoveBook(Book book)
         {
+            if (book == null)
+                throw new ArgumentException("Book cannot be null.");
+
             if (associatedBooks.Contains(book))
             {
                 associatedBooks.Remove(book);
-                book.removeFromWishlist(this);
+                book.removeFromWishlist(this); // Обратная связь
             }
         }
-        public void removeAllBooks()
+
+        public void RemoveAllBooks()
         {
-            foreach(Book book in associatedBooks)
+            foreach (var book in new List<Book>(associatedBooks)) // Безопасная итерация
             {
-                removeBook(book);
+                RemoveBook(book);
             }
         }
-        public void assignCustomer(Customer customer)
+
+        public void UpdateBook(Book oldBook, Book newBook)
         {
-            if (associatedCustomer == null)
+            if (oldBook == null || newBook == null)
+                throw new ArgumentException("Books cannot be null.");
+
+            if (associatedBooks.Contains(oldBook))
             {
-                AssociatedCustomer = customer;
-                customer.assignWishlist(this);
+                RemoveBook(oldBook);
+                AddBook(newBook);
+            }
+            else
+            {
+                throw new InvalidOperationException("The book to be replaced does not exist in the wishlist.");
             }
         }
-        public void removeFromCustomer(Customer customer)
+
+        // --- Методы для управления клиентом ---
+        public void AssignCustomer(Customer customer)
+        {
+            if (customer == null)
+                throw new ArgumentException("Customer cannot be null.");
+
+            if (associatedCustomer != customer)
+            {
+                associatedCustomer = customer;
+                customer.assignWishlist(this); // Обратная связь
+            }
+        }
+
+        public void UpdateCustomer(Customer newCustomer)
+        {
+            if (newCustomer == null)
+                throw new ArgumentException("New customer cannot be null.");
+
+            RemoveFromCustomer();
+            AssignCustomer(newCustomer);
+        }
+
+        public void RemoveFromCustomer()
         {
             if (associatedCustomer != null)
             {
+                var tempCustomer = associatedCustomer;
                 associatedCustomer = null;
-                customer.removeFromWishlist(this);
+                tempCustomer.removeFromWishlist(this); // Обратная связь
             }
+        }
+
+        // --- Новые методы для исправления ошибок ---
+        public void addBook(Book book)
+        {
+            AddBook(book);
+        }
+
+        public void removeBook(Book book)
+        {
+            RemoveBook(book);
         }
     }
 }

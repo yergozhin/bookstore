@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Xml;
-using System.Xml.Serialization;
 
 namespace Bookstore.@class
 {
@@ -10,9 +7,14 @@ namespace Bookstore.@class
     public class Author
     {
         private static List<Author> authors = new List<Author>();
+
         private string firstName;
         private string lastName;
         private string bio;
+
+        private List<Book> authoredBooks = new List<Book>(); // Ассоциация с книгами
+
+        public IReadOnlyList<Book> AuthoredBooks => authoredBooks.AsReadOnly();
 
         public string FirstName
         {
@@ -45,7 +47,7 @@ namespace Bookstore.@class
             get => bio;
             set
             {
-                if (value == "")
+                if (string.IsNullOrEmpty(value))
                 {
                     throw new ArgumentException("Bio cannot be empty.");
                 }
@@ -57,7 +59,7 @@ namespace Bookstore.@class
         {
             FirstName = firstName;
             LastName = lastName;
-            Bio = bio; 
+            Bio = bio;
             authors.Add(this);
         }
 
@@ -65,13 +67,41 @@ namespace Bookstore.@class
         {
             authors.Clear();
         }
+
         public static List<Author> GetAuthors()
         {
             return new List<Author>(authors);
         }
-        /*public static void Add(Author author)
+
+        // --- Методы для ассоциации с книгами ---
+        public void AddBook(Book book)
         {
-            authors.Add(author);
-        }*/
+            if (book == null)
+                throw new ArgumentException("Book cannot be null.");
+
+            if (!authoredBooks.Contains(book))
+            {
+                authoredBooks.Add(book);
+                book.AssignAuthor(this); // Обратная связь
+            }
+        }
+
+        public void RemoveBook(Book book)
+        {
+            if (book == null)
+                throw new ArgumentException("Book cannot be null.");
+
+            if (authoredBooks.Contains(book))
+            {
+                authoredBooks.Remove(book);
+                book.RemoveAuthor(); // Обратная связь
+            }
+        }
+
+        public void UpdateBook(Book oldBook, Book newBook)
+        {
+            RemoveBook(oldBook);
+            AddBook(newBook);
+        }
     }
 }

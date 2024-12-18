@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Xml;
-using System.Xml.Serialization;
 
 namespace Bookstore.@class
 {
@@ -51,6 +48,10 @@ namespace Bookstore.@class
                 {
                     throw new ArgumentException("Invalid email address.");
                 }
+                if (users.Exists(u => u.email == value && u != this))
+                {
+                    throw new InvalidOperationException("Email must be unique.");
+                }
                 email = value;
             }
         }
@@ -81,13 +82,43 @@ namespace Bookstore.@class
         {
             users.Clear();
         }
+
         public static List<User> GetUsers()
         {
             return new List<User>(users);
         }
-        /*public static void Add(User user)
+
+        // --- Метод для поиска пользователя ---
+        public static User FindUser(string searchTerm)
         {
-            users.Add(user);
-        }*/
+            return users.Find(user =>
+                user.Name.Equals(searchTerm, StringComparison.OrdinalIgnoreCase) ||
+                user.Email.Equals(searchTerm, StringComparison.OrdinalIgnoreCase) ||
+                user.PhoneNumber.Equals(searchTerm, StringComparison.OrdinalIgnoreCase));
+        }
+
+        // --- Метод для обновления данных ---
+        public void UpdateUser(string newName = null, string newPhoneNumber = null, string newEmail = null, DateTime? newDateOfBirth = null)
+        {
+            if (!string.IsNullOrEmpty(newName))
+            {
+                Name = newName;
+            }
+
+            if (!string.IsNullOrEmpty(newPhoneNumber))
+            {
+                PhoneNumber = newPhoneNumber;
+            }
+
+            if (!string.IsNullOrEmpty(newEmail))
+            {
+                Email = newEmail;
+            }
+
+            if (newDateOfBirth.HasValue)
+            {
+                DateOfBirth = newDateOfBirth.Value;
+            }
+        }
     }
 }
