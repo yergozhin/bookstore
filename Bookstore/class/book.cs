@@ -247,5 +247,4 @@ public class Book
             tempPublisher.RemoveBook(this); // Обратная связь
         }
     }
-    
 }
