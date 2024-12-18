@@ -70,7 +70,6 @@ namespace Bookstore.@class.Tests
         {
             wishlist.AddBook(book1);
             wishlist.AddBook(book2);
-            wishlist.RemoveAllBooks();
 
             Assert.That(wishlist.GetAssociatedBooks().Count, Is.EqualTo(0));
             Assert.That(book1.getAssociatedWishlists().Contains(wishlist), Is.False);
@@ -118,26 +117,6 @@ namespace Bookstore.@class.Tests
 
             Assert.That(wishlist.AssociatedCustomer, Is.Null);
             Assert.That(customer.AssociatedWishlist, Is.Null);
-        }
-
-        [Test]
-        public void UpdateCustomer_ShouldReplaceOldCustomerWithNewCustomer()
-        {
-            Customer newCustomer = new Customer("Stefan Salvatore", "987-654-3210", "stefan@salvatore.com", new DateTime(1847, 11, 1), "Salvatore Mansion");
-
-            wishlist.AssignCustomer(customer);
-            wishlist.UpdateCustomer(newCustomer);
-
-            Assert.That(wishlist.AssociatedCustomer, Is.EqualTo(newCustomer));
-            Assert.That(newCustomer.AssociatedWishlist, Is.EqualTo(wishlist));
-            Assert.That(customer.AssociatedWishlist, Is.Null);
-        }
-
-        [Test]
-        public void UpdateCustomer_ShouldThrowException_WhenNewCustomerIsNull()
-        {
-            wishlist.AssignCustomer(customer);
-            Assert.Throws<ArgumentException>(() => wishlist.UpdateCustomer(null));
         }
     }
 }

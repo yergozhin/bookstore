@@ -143,7 +143,7 @@ public class Book
         if (!associatedWishlists.Contains(wishlist))
         {
             associatedWishlists.Add(wishlist);
-            wishlist.addBook(this);
+            wishlist.AddBook(this);
         }
     }
 
@@ -152,7 +152,7 @@ public class Book
         if (associatedWishlists.Contains(wishlist))
         {
             associatedWishlists.Remove(wishlist);
-            wishlist.removeBook(this);
+            wishlist.RemoveBook(this);
         }
     }
 

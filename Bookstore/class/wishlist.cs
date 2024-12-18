@@ -68,14 +68,6 @@ namespace Bookstore.@class
             }
         }
 
-        public void RemoveAllBooks()
-        {
-            foreach (var book in new List<Book>(associatedBooks)) // Безопасная итерация
-            {
-                RemoveBook(book);
-            }
-        }
-
         public void UpdateBook(Book oldBook, Book newBook)
         {
             if (oldBook == null || newBook == null)
@@ -105,15 +97,6 @@ namespace Bookstore.@class
             }
         }
 
-        public void UpdateCustomer(Customer newCustomer)
-        {
-            if (newCustomer == null)
-                throw new ArgumentException("New customer cannot be null.");
-
-            RemoveFromCustomer();
-            AssignCustomer(newCustomer);
-        }
-
         public void RemoveFromCustomer()
         {
             if (associatedCustomer != null)
@@ -122,17 +105,6 @@ namespace Bookstore.@class
                 associatedCustomer = null;
                 tempCustomer.removeFromWishlist(this); // Обратная связь
             }
-        }
-
-        // --- Новые методы для исправления ошибок ---
-        public void addBook(Book book)
-        {
-            AddBook(book);
-        }
-
-        public void removeBook(Book book)
-        {
-            RemoveBook(book);
         }
     }
 }

@@ -64,7 +64,6 @@ namespace Bookstore.@class.Tests
         {
             order1.addBook(book1);
             order1.addBook(book2);
-            order1.removeAllBooks();
 
             Assert.That(order1.getAssociatedBooks().Count, Is.EqualTo(0));
             Assert.That(book1.getAssociatedOrders().Contains(order1), Is.False);

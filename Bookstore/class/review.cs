@@ -162,18 +162,5 @@ namespace Bookstore.@class
             }
             assignBook(newBook);
         }
-
-        // --- Метод обновления клиента ---
-        public void updateCustomer(Customer newCustomer)
-        {
-            if (newCustomer == null)
-                throw new ArgumentException("New customer cannot be null.");
-
-            if (associatedCustomer != null)
-            {
-                removeFromCustomer();
-            }
-            assignCustomer(newCustomer);
-        }
     }
 }

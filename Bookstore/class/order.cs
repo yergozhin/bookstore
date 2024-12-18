@@ -22,7 +22,6 @@ namespace Bookstore.@class
         private DateTime orderDate;
         private string status;
         private float totalAmount;
-        //private List<Book> books;
 
         public DateTime OrderDate
         {
@@ -76,19 +75,11 @@ namespace Bookstore.@class
                 associatedCustomer = value;
             }
         }
-        /*public List<Book> Books
-        {
-            get
-            {
-                return new List<Book>(books);
-            }
-        }*/
 
         public Order(DateTime orderDate, string status)
         {
             OrderDate = orderDate;
             Status = status;
-            //books = new List<Book>();
             totalAmount = 0;
             orders.Add(this);
         }
@@ -101,32 +92,6 @@ namespace Bookstore.@class
         {
             return new List<Order>(orders);
         }
-        /*public static void Add(Order order)
-        {
-            orders.Add(order);
-        }*/
-        /*public void addBookToOrder(Book book)
-        {
-            //List<Book> _books = Book.GetBooks();
-            foreach(Book b in _books){
-                if(b.Title == book.Title)
-                {
-                    totalAmount = totalAmount + (float)b.Price;
-                    books.Add(b);
-                    return;
-                }
-            }
-            Console.WriteLine("Book with title:", book.Title, "was not found, therefore it is not added to order");
-        }*/
-        /*public void deleteBookFromOrder(Book book)
-        {
-            if (!books.Contains(book))
-            {
-                return;
-            }
-            books.Remove(book);
-            totalAmount = totalAmount - (float)book.Price;
-        }*/
         public void assignEmployeeWhoProcesses(Employee employee)
         {
             if (!associatedEmployees.Contains(employee))
@@ -141,13 +106,6 @@ namespace Bookstore.@class
             {
                 associatedEmployees.Remove(employee);
                 employee.removeAssignedOrder(this);
-            }
-        }
-        public void removeAllEmployees()
-        {
-            foreach (Employee employee in associatedEmployees)
-            {
-                removeEmployeeFromProcessing(employee);
             }
         }
 
@@ -167,12 +125,10 @@ namespace Bookstore.@class
                 book.removeFromOrder(this);
             }
         }
-        public void removeAllBooks()
+        public void updateBook(Book oldBook, Book newBook)
         {
-            foreach (Book book in associatedBooks)
-            {
-                removeBook(book);
-            }
+            removeBook(oldBook);
+            addBook(newBook);
         }
 
         public void assignCustomer(Customer customer)
