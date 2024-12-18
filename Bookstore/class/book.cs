@@ -156,14 +156,6 @@ public class Book
         }
     }
 
-    public void removeFromAllWishlists()
-    {
-        foreach (Wishlist wishlist in associatedWishlists)
-        {
-            removeFromWishlist(wishlist);
-        }
-    }
-
     public void assignToOrder(Order order)
     {
         if (!associatedOrders.Contains(order))
@@ -179,14 +171,6 @@ public class Book
         {
             associatedOrders.Remove(order);
             order.removeBook(this);
-        }
-    }
-
-    public void removeFromAllOrders()
-    {
-        foreach (Order order in associatedOrders)
-        {
-            removeFromOrder(order);
         }
     }
 
@@ -263,4 +247,5 @@ public class Book
             tempPublisher.RemoveBook(this); // Обратная связь
         }
     }
+    
 }

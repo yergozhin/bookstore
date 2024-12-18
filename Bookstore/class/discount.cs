@@ -77,10 +77,6 @@ namespace Bookstore.@class
         {
             return new List<Discount>(discounts);
         }
-        /*public static void Add(Discount discount)
-        {
-            discounts.Add(discount);
-        }*/
         public void addCustomer(Customer customer)
         {
             if (!associatedCustomers.Contains(customer))
@@ -95,13 +91,6 @@ namespace Bookstore.@class
             {
                 associatedCustomers.Remove(customer);
                 customer.removeDiscount(this);
-            }
-        }
-        public void removeAllCustomers()
-        {
-            foreach (Customer customer in associatedCustomers)
-            {
-                removeCustomer(customer);
             }
         }
     }

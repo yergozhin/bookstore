@@ -58,7 +58,6 @@ namespace Bookstore.@class.Tests
         {
             discount1.addCustomer(customer1);
             discount1.addCustomer(customer2);
-            discount1.removeAllCustomers();
 
             Assert.That(discount1.getAssociatedCustomers().Count, Is.EqualTo(0));
             Assert.That(customer1.getAssociatedDiscounts().Contains(discount1), Is.False);
