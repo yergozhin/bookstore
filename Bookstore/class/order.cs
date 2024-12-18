@@ -21,7 +21,6 @@ namespace Bookstore.@class
 
         private DateTime orderDate;
         private string status;
-        private float totalAmount;
 
         public DateTime OrderDate
         {
@@ -80,7 +79,6 @@ namespace Bookstore.@class
         {
             OrderDate = orderDate;
             Status = status;
-            totalAmount = 0;
             orders.Add(this);
         }
 
