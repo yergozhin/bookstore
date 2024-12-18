@@ -5,6 +5,7 @@ namespace Bookstore.@class
     public class Horror : Book
     {
         private int _levelOfScariness;
+
         public int LevelOfScariness
         {
             get => _levelOfScariness;
@@ -14,14 +15,15 @@ namespace Bookstore.@class
                 {
                     throw new ArgumentException("Value must be in range between 1 and 10");
                 }
+
                 _levelOfScariness = value;
             }
         }
 
-        public Horror(string title, float price, string languageOfPublication, int levelOfScariness) : base(title, price, languageOfPublication)
+        public Horror(string title, float price, string languageOfPublication, int levelOfScariness) : base(title,
+            price, languageOfPublication)
         {
             LevelOfScariness = levelOfScariness;
-
         }
     }
 }

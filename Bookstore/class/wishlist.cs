@@ -21,6 +21,7 @@ namespace Bookstore.@class
                 {
                     throw new ArgumentException("Max capacity must be greater than zero.");
                 }
+
                 maxCapacity = value;
             }
         }
@@ -34,11 +35,14 @@ namespace Bookstore.@class
                 {
                     throw new ArgumentException("Customer cannot be null.");
                 }
+
                 associatedCustomer = value;
             }
         }
 
-        public Wishlist() { }
+        public Wishlist()
+        {
+        }
 
         // --- Методы для управления книгами ---
         public void AddBook(Book book)

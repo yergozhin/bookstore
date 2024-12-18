@@ -5,6 +5,7 @@ namespace Bookstore.@class
     public class Manga : Book
     {
         private int _volume;
+
         public int Volume
         {
             get => _volume;
@@ -14,14 +15,15 @@ namespace Bookstore.@class
                 {
                     throw new ArgumentException("Volume must be greater than 0.");
                 }
+
                 _volume = value;
             }
         }
 
-        public Manga(string title, float price, string languageOfPublication, int volume) : base(title, price, languageOfPublication)
+        public Manga(string title, float price, string languageOfPublication, int volume) : base(title, price,
+            languageOfPublication)
         {
             Volume = volume;
         }
     }
 }
-

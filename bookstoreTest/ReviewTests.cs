@@ -23,7 +23,8 @@ namespace Bookstore.@class.Tests
             review2 = new Review(3, "It was ok.", new DateTime(2024, 11, 1));
 
             book1 = new Book("Vampire Diaries", 299.99, "English");
-            customer1 = new Customer("Elena Gilbert", "123-456-7890", "elena@gilbert.com", new DateTime(1992, 6, 22), "Mystic Falls, VA");
+            customer1 = new Customer("Elena Gilbert", "123-456-7890", "elena@gilbert.com", new DateTime(1992, 6, 22),
+                "Mystic Falls, VA");
         }
 
         [Test]

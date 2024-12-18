@@ -28,8 +28,10 @@ namespace Bookstore.@class.Tests
             book1 = new Book("Vampire Chronicles", 199.99, "English");
             book2 = new Book("Mystic Legends", 159.99, "English");
 
-            employee1 = new Employee("Damon Salvatore", "555-555-5555", "damon@salvatore.com", new DateTime(1840, 10, 1), "Manager");
-            customer1 = new Customer("Elena Gilbert", "123-456-7890", "elena@gilbert.com", new DateTime(1992, 6, 22), "Mystic Falls, VA");
+            employee1 = new Employee("Damon Salvatore", "555-555-5555", "damon@salvatore.com",
+                new DateTime(1840, 10, 1), "Manager");
+            customer1 = new Customer("Elena Gilbert", "123-456-7890", "elena@gilbert.com", new DateTime(1992, 6, 22),
+                "Mystic Falls, VA");
         }
 
         [Test]

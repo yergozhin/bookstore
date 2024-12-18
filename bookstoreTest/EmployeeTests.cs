@@ -19,9 +19,12 @@ namespace Bookstore.@class.Tests
             Employee.ClearUsers();
             Order.ClearOrders();
 
-            employee1 = new Employee("Alaric Saltzman", "111-222-3333", "alaric@mysticfalls.com", new DateTime(1980, 5, 6), "History Teacher");
-            employee2 = new Employee("Caroline Forbes", "444-555-6666", "caroline@forbes.com", new DateTime(1992, 10, 10), "School Counselor");
-            supervisor = new Employee("Damon Salvatore", "555-666-7777", "damon@salvatore.com", new DateTime(1840, 10, 1), "Manager");
+            employee1 = new Employee("Alaric Saltzman", "111-222-3333", "alaric@mysticfalls.com",
+                new DateTime(1980, 5, 6), "History Teacher");
+            employee2 = new Employee("Caroline Forbes", "444-555-6666", "caroline@forbes.com",
+                new DateTime(1992, 10, 10), "School Counselor");
+            supervisor = new Employee("Damon Salvatore", "555-666-7777", "damon@salvatore.com",
+                new DateTime(1840, 10, 1), "Manager");
 
             order1 = new Order(new DateTime(2024, 12, 1), "In Progress");
             order2 = new Order(new DateTime(2024, 12, 5), "Completed");

@@ -24,6 +24,7 @@ namespace Bookstore.@class
                 {
                     throw new ArgumentException("Rating must be between 1 and 5.");
                 }
+
                 rating = value;
             }
         }
@@ -37,6 +38,7 @@ namespace Bookstore.@class
                 {
                     throw new ArgumentException("Comment cannot be empty.");
                 }
+
                 comment = value;
             }
         }
@@ -50,6 +52,7 @@ namespace Bookstore.@class
                 {
                     throw new ArgumentException("Invalid review date.");
                 }
+
                 reviewDate = value;
             }
         }
@@ -63,6 +66,7 @@ namespace Bookstore.@class
                 {
                     throw new ArgumentException("Book cannot be null.");
                 }
+
                 associatedBook = value;
             }
         }
@@ -76,6 +80,7 @@ namespace Bookstore.@class
                 {
                     throw new ArgumentException("Customer cannot be null.");
                 }
+
                 associatedCustomer = value;
             }
         }
@@ -160,6 +165,7 @@ namespace Bookstore.@class
             {
                 removeFromBook(associatedBook);
             }
+
             assignBook(newBook);
         }
     }

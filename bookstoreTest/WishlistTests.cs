@@ -21,7 +21,8 @@ namespace Bookstore.@class.Tests
             wishlist = new Wishlist();
             book1 = new Book("The Founder's Diaries", 199.99, "English");
             book2 = new Book("Mystic Legends", 159.99, "English");
-            customer = new Customer("Elena Gilbert", "123-456-7890", "elena@gilbert.com", new DateTime(1992, 6, 22), "Mystic Falls, VA");
+            customer = new Customer("Elena Gilbert", "123-456-7890", "elena@gilbert.com", new DateTime(1992, 6, 22),
+                "Mystic Falls, VA");
         }
 
         [Test]

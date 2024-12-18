@@ -22,6 +22,7 @@ namespace Bookstore.@class
                 {
                     throw new ArgumentException("Name cannot be empty.");
                 }
+
                 name = value;
             }
         }
@@ -35,6 +36,7 @@ namespace Bookstore.@class
                 {
                     throw new ArgumentException("Phone number cannot be empty.");
                 }
+
                 phoneNumber = value;
             }
         }
@@ -48,10 +50,12 @@ namespace Bookstore.@class
                 {
                     throw new ArgumentException("Invalid email address.");
                 }
+
                 if (users.Exists(u => u.email == value && u != this))
                 {
                     throw new InvalidOperationException("Email must be unique.");
                 }
+
                 email = value;
             }
         }
@@ -65,6 +69,7 @@ namespace Bookstore.@class
                 {
                     throw new ArgumentException("Invalid date of birth.");
                 }
+
                 dateOfBirth = value;
             }
         }
@@ -98,7 +103,8 @@ namespace Bookstore.@class
         }
 
         // --- Метод для обновления данных ---
-        public void UpdateUser(string newName = null, string newPhoneNumber = null, string newEmail = null, DateTime? newDateOfBirth = null)
+        public void UpdateUser(string newName = null, string newPhoneNumber = null, string newEmail = null,
+            DateTime? newDateOfBirth = null)
         {
             if (!string.IsNullOrEmpty(newName))
             {

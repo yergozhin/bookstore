@@ -41,6 +41,7 @@ public class Book
             {
                 throw new ArgumentException($"Title must be between {lengthMin} and {lengthMax} characters.");
             }
+
             title = value;
         }
     }
@@ -54,6 +55,7 @@ public class Book
             {
                 throw new ArgumentException($"Price must be between 0 and {maxPrice}.");
             }
+
             price = value;
         }
     }
@@ -67,6 +69,7 @@ public class Book
             {
                 throw new ArgumentException("Language of publication cannot be empty.");
             }
+
             languageOfPublication = value;
         }
     }
@@ -86,6 +89,7 @@ public class Book
                     }
                 }
             }
+
             listOfLanguagesToWhichTranslated = value ?? new List<string>();
         }
     }
@@ -95,7 +99,8 @@ public class Book
         ListOfLanguagesToWhichTranslated = new List<string>();
     }
 
-    public Book(string title, double price, string languageOfPublication, List<string> listOfLanguagesToWhichTranslated = null)
+    public Book(string title, double price, string languageOfPublication,
+        List<string> listOfLanguagesToWhichTranslated = null)
     {
         Title = title;
         Price = price;
@@ -108,6 +113,7 @@ public class Book
     {
         books.Clear();
     }
+
     public static List<Book> GetBooks()
     {
         return new List<Book>(books);
@@ -119,10 +125,12 @@ public class Book
         {
             return;
         }
+
         if (string.IsNullOrEmpty(language))
         {
             throw new ArgumentException("Language to which the book was translated cannot be empty.");
         }
+
         listOfLanguagesToWhichTranslated.Add(language);
     }
 
@@ -135,6 +143,7 @@ public class Book
                 return true;
             }
         }
+
         return false;
     }
 

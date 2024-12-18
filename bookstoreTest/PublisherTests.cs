@@ -18,7 +18,8 @@ namespace Bookstore.@class.Tests
             Publisher.ClearPublishers();
             Book.ClearBooks();
 
-            publisher1 = new Publisher("Mystic Falls Publishing", "123 Vampire Lane", "contact@mysticfalls.com", "123-456-7890");
+            publisher1 = new Publisher("Mystic Falls Publishing", "123 Vampire Lane", "contact@mysticfalls.com",
+                "123-456-7890");
             publisher2 = new Publisher("Salvatore Books", "Salvatore Mansion", "info@salvatorebooks.com");
 
             book1 = new Book("The Founder's Diaries", 199.99, "English");
@@ -69,13 +70,15 @@ namespace Bookstore.@class.Tests
         [Test]
         public void CheckEmptyName()
         {
-            Assert.Throws<ArgumentException>(() => new Publisher("", "Unknown Address", "info@publisher.com", "555-555-5555"));
+            Assert.Throws<ArgumentException>(() =>
+                new Publisher("", "Unknown Address", "info@publisher.com", "555-555-5555"));
         }
 
         [Test]
         public void CheckInvalidEmail()
         {
-            Assert.Throws<ArgumentException>(() => new Publisher("Mystic Falls Publishing", "123 Vampire Lane", "contactmysticfalls.com"));
+            Assert.Throws<ArgumentException>(() =>
+                new Publisher("Mystic Falls Publishing", "123 Vampire Lane", "contactmysticfalls.com"));
         }
 
         [Test]

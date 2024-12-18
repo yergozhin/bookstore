@@ -25,6 +25,7 @@ namespace Bookstore.@class
                 {
                     throw new ArgumentException("First name cannot be empty.");
                 }
+
                 firstName = value;
             }
         }
@@ -38,6 +39,7 @@ namespace Bookstore.@class
                 {
                     throw new ArgumentException("Last name cannot be empty.");
                 }
+
                 lastName = value;
             }
         }
@@ -51,6 +53,7 @@ namespace Bookstore.@class
                 {
                     throw new ArgumentException("Bio cannot be empty.");
                 }
+
                 bio = value;
             }
         }

@@ -17,7 +17,6 @@ namespace Bookstore.@class.Tests
 
             horror1 = new Horror("Mystic Legends", 199.99f, "English", 7);
             horror2 = new Horror("The Vampire's Secret", 299.99f, "French", 5);
-
         }
 
         [Test]
@@ -59,7 +58,7 @@ namespace Bookstore.@class.Tests
         {
             horror1.LevelOfScariness = 8;
             List<Horror> horrors = Book.GetBooks().ConvertAll(book => book as Horror).FindAll(b => b != null);
-            Assert.That(horrors[0].LevelOfScariness, Is.EqualTo(8));  
+            Assert.That(horrors[0].LevelOfScariness, Is.EqualTo(8));
         }
 
         [Test]

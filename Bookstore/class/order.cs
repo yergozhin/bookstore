@@ -16,7 +16,7 @@ namespace Bookstore.@class
 
         private List<Book> associatedBooks = new List<Book>();
         public IReadOnlyList<Book> getAssociatedBooks() => associatedBooks.AsReadOnly();
-        
+
         private Customer associatedCustomer;
 
         private DateTime orderDate;
@@ -31,6 +31,7 @@ namespace Bookstore.@class
                 {
                     throw new ArgumentException("Invalid order date.");
                 }
+
                 orderDate = value;
             }
         }
@@ -44,6 +45,7 @@ namespace Bookstore.@class
                 {
                     throw new ArgumentException("Status cannot be empty.");
                 }
+
                 status = value;
             }
         }
@@ -57,10 +59,11 @@ namespace Bookstore.@class
                 {
                     total += book.Price;
                 }
+
                 return total;
             }
         }
-        
+
         public Customer AssociatedCustomer
         {
             get => associatedCustomer;
@@ -71,6 +74,7 @@ namespace Bookstore.@class
                 {
                     throw new ArgumentException("Customer cannot be null.");
                 }
+
                 associatedCustomer = value;
             }
         }
@@ -86,10 +90,12 @@ namespace Bookstore.@class
         {
             orders.Clear();
         }
+
         public static List<Order> GetOrders()
         {
             return new List<Order>(orders);
         }
+
         public void assignEmployeeWhoProcesses(Employee employee)
         {
             if (!associatedEmployees.Contains(employee))
@@ -98,6 +104,7 @@ namespace Bookstore.@class
                 employee.assignOrder(this);
             }
         }
+
         public void removeEmployeeFromProcessing(Employee employee)
         {
             if (associatedEmployees.Contains(employee))
@@ -115,6 +122,7 @@ namespace Bookstore.@class
                 book.assignToOrder(this);
             }
         }
+
         public void removeBook(Book book)
         {
             if (associatedBooks.Contains(book))
@@ -123,6 +131,7 @@ namespace Bookstore.@class
                 book.removeFromOrder(this);
             }
         }
+
         public void updateBook(Book oldBook, Book newBook)
         {
             removeBook(oldBook);
@@ -134,7 +143,7 @@ namespace Bookstore.@class
             if (associatedCustomer == null)
             {
                 AssociatedCustomer = customer;
-                customer.addOrder(this); 
+                customer.addOrder(this);
             }
         }
 
@@ -142,11 +151,10 @@ namespace Bookstore.@class
         {
             if (associatedCustomer != null)
             {
-                var tempCustomer = associatedCustomer; 
+                var tempCustomer = associatedCustomer;
                 associatedCustomer = null;
                 tempCustomer.removeOrder(this);
             }
         }
-
     }
 }

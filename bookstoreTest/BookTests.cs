@@ -29,7 +29,8 @@ namespace Bookstore.@class.Tests
             Assert.That(book1.Title, Is.EqualTo("How to Spot a Vampire"));
             Assert.That(book1.Price, Is.EqualTo(299.90));
             Assert.That(book1.LanguageOfPublication, Is.EqualTo("English"));
-            Assert.That(book1.ListOfLanguagesToWhichTranslated, Is.EquivalentTo(new List<string> { "Latin", "Italian" }));
+            Assert.That(book1.ListOfLanguagesToWhichTranslated,
+                Is.EquivalentTo(new List<string> { "Latin", "Italian" }));
         }
 
         [Test]

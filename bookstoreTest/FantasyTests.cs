@@ -15,8 +15,10 @@ namespace Bookstore.@class.Tests
         {
             Book.ClearBooks();
 
-            fantasy1 = new Fantasy("Magic in Mystic Falls", 399.99f, "English", new List<string> { "Vampires", "Witches" });
-            fantasy2 = new Fantasy("Secrets of the Supernatural", 299.99f, "Spanish", new List<string> { "Werewolves" });
+            fantasy1 = new Fantasy("Magic in Mystic Falls", 399.99f, "English",
+                new List<string> { "Vampires", "Witches" });
+            fantasy2 = new Fantasy("Secrets of the Supernatural", 299.99f, "Spanish",
+                new List<string> { "Werewolves" });
         }
 
         [Test]
@@ -37,7 +39,8 @@ namespace Bookstore.@class.Tests
         [Test]
         public void CheckInvalidMagicalCreature()
         {
-            var fantasy = new Fantasy("Fantasy with Unknown Creatures", 259.99f, "English", new List<string> { "Aliens", "Unicorns" });
+            var fantasy = new Fantasy("Fantasy with Unknown Creatures", 259.99f, "English",
+                new List<string> { "Aliens", "Unicorns" });
             Assert.That(fantasy.MagicalCreatures, Is.EquivalentTo(new List<string> { "Others", "Others" }));
         }
 

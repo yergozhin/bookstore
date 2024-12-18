@@ -22,8 +22,10 @@ namespace Bookstore.@class.Tests
             Review.ClearReviews();
             Discount.ClearDiscounts();
 
-            customer1 = new Customer("Elena Gilbert", "123-456-7890", "elena@gilbert.com", new DateTime(1992, 6, 22), "Mystic Falls, VA");
-            customer2 = new Customer("Stefan Salvatore", "987-654-3210", "stefan@salvatore.com", new DateTime(1847, 11, 1), "Salvatore Mansion, Mystic Falls");
+            customer1 = new Customer("Elena Gilbert", "123-456-7890", "elena@gilbert.com", new DateTime(1992, 6, 22),
+                "Mystic Falls, VA");
+            customer2 = new Customer("Stefan Salvatore", "987-654-3210", "stefan@salvatore.com",
+                new DateTime(1847, 11, 1), "Salvatore Mansion, Mystic Falls");
 
             order1 = new Order(DateTime.Today, "Pending");
             review1 = new Review(5, "Great book!", DateTime.Today);

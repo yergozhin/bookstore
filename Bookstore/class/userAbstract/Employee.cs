@@ -11,6 +11,7 @@ namespace Bookstore.@class
         private Employee associatedSupervisor = null;
 
         private string _position;
+
         public string Position
         {
             get => _position;
@@ -20,6 +21,7 @@ namespace Bookstore.@class
                 {
                     throw new ArgumentException("Position cannot be empty.");
                 }
+
                 _position = value;
             }
         }
@@ -29,6 +31,7 @@ namespace Bookstore.@class
         {
             Position = position;
         }
+
         public void assignOrder(Order order)
         {
             if (!associatedOrders.Contains(order))
@@ -37,6 +40,7 @@ namespace Bookstore.@class
                 order.assignEmployeeWhoProcesses(this);
             }
         }
+
         public void removeAssignedOrder(Order order)
         {
             if (associatedOrders.Contains(order))
@@ -45,6 +49,7 @@ namespace Bookstore.@class
                 order.removeEmployeeFromProcessing(this);
             }
         }
+
         public void removeAllOrders()
         {
             foreach (Order order in associatedOrders)
@@ -52,6 +57,7 @@ namespace Bookstore.@class
                 removeAssignedOrder(order);
             }
         }
+
         public void assignEmployee(Employee employee)
         {
             if (!associatedEmployees.Contains(employee) && employee != null)
@@ -60,6 +66,7 @@ namespace Bookstore.@class
                 employee.assignEmployeeWhoSupervises(this);
             }
         }
+
         public void removeAssignedEmployee(Employee employee)
         {
             if (associatedEmployees.Contains(employee) && employee != null)
@@ -68,6 +75,7 @@ namespace Bookstore.@class
                 employee.removeEmployeeFromSuperviser(this);
             }
         }
+
         public void assignEmployeeWhoSupervises(Employee employee)
         {
             if (associatedSupervisor == null && employee != null)
@@ -76,6 +84,7 @@ namespace Bookstore.@class
                 employee.assignEmployee(this);
             }
         }
+
         public void removeEmployeeFromSuperviser(Employee employee)
         {
             if (associatedSupervisor != null && employee != null)
@@ -84,7 +93,5 @@ namespace Bookstore.@class
                 employee.removeAssignedEmployee(this);
             }
         }
-
-
     }
 }

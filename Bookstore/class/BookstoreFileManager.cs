@@ -4,12 +4,14 @@ using System.Xml.Serialization;
 
 namespace Bookstore.@class
 {
-	public class BookstoreFileManager
-	{
-		public BookstoreFileManager()
-		{
-		}
+    public class BookstoreFileManager
+    {
+        public BookstoreFileManager()
+        {
+        }
+
         private static string bookstoreFilePath = "bookstore.xml";
+
         public static void SaveBookstore()
         {
             BookstoreContainer bookstore = new BookstoreContainer
@@ -32,6 +34,7 @@ namespace Bookstore.@class
                 }
             }
         }
+
         public static bool LoadBookstore()
         {
             if (!File.Exists(bookstoreFilePath))
@@ -66,33 +69,42 @@ namespace Bookstore.@class
                         foreach (var book in bookstore.Books)
                         {
                             //Book.Add(book);
-                            Book newBook = new Book(book.Title,book.Price,book.LanguageOfPublication,book.ListOfLanguagesToWhichTranslated);
+                            Book newBook = new Book(book.Title, book.Price, book.LanguageOfPublication,
+                                book.ListOfLanguagesToWhichTranslated);
                         }
+
                         foreach (var author in bookstore.Authors)
                         {
                             Author newAuthor = new Author(author.FirstName, author.LastName, author.Bio);
                             //Author.Add(author);
                         }
+
                         foreach (var discount in bookstore.Discounts)
                         {
-                            Discount newDiscount = new Discount(discount.Type, discount.AmountInPercentage, discount.DeadlineDate);
+                            Discount newDiscount = new Discount(discount.Type, discount.AmountInPercentage,
+                                discount.DeadlineDate);
                             //Discount.Add(discount);
                         }
+
                         foreach (var order in bookstore.Orders)
                         {
                             Order newOrder = new Order(order.OrderDate, order.Status);
                             //Order.Add(order);
                         }
+
                         foreach (var publisher in bookstore.Publishers)
                         {
-                            Publisher newPublisher = new Publisher(publisher.Name, publisher.Address, publisher.Email, publisher.PhoneNumber);
+                            Publisher newPublisher = new Publisher(publisher.Name, publisher.Address, publisher.Email,
+                                publisher.PhoneNumber);
                             //Publisher.Add(publisher);
                         }
+
                         foreach (var review in bookstore.Reviews)
                         {
                             Review newReview = new Review(review.Rating, review.Comment, review.ReviewDate);
                             //Review.Add(review);
                         }
+
                         foreach (var user in bookstore.Users)
                         {
                             User newUser = new User(user.Name, user.PhoneNumber, user.Email, user.DateOfBirth);
@@ -117,4 +129,3 @@ namespace Bookstore.@class
         }
     }
 }
-

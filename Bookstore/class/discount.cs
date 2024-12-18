@@ -27,10 +27,12 @@ namespace Bookstore.@class
                 {
                     throw new ArgumentException("Type must be either Single Use or Multiple Use");
                 }
+
                 if (string.IsNullOrEmpty(value))
                 {
                     throw new ArgumentException("Type cannot be empty.");
                 }
+
                 type = value;
             }
         }
@@ -44,6 +46,7 @@ namespace Bookstore.@class
                 {
                     throw new ArgumentException("Amount in percentage must be between 0 and 100.");
                 }
+
                 amountInPercentage = value;
             }
         }
@@ -57,6 +60,7 @@ namespace Bookstore.@class
                 {
                     throw new ArgumentException("Invalid date of deadline.");
                 }
+
                 deadlineDate = value;
             }
         }
@@ -73,10 +77,12 @@ namespace Bookstore.@class
         {
             discounts.Clear();
         }
+
         public static List<Discount> GetDiscounts()
         {
             return new List<Discount>(discounts);
         }
+
         public void addCustomer(Customer customer)
         {
             if (!associatedCustomers.Contains(customer))
@@ -85,6 +91,7 @@ namespace Bookstore.@class
                 customer.addDiscount(this);
             }
         }
+
         public void removeCustomer(Customer customer)
         {
             if (associatedCustomers.Contains(customer))

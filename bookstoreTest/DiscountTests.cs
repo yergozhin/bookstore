@@ -21,8 +21,10 @@ namespace Bookstore.@class.Tests
             discount1 = new Discount("Single Use", 10.0f, new DateTime(2025, 1, 1));
             discount2 = new Discount("Multiple Use", 25.0f, new DateTime(2024, 12, 31));
 
-            customer1 = new Customer("Elena Gilbert", "123-456-7890", "elena@gilbert.com", new DateTime(1992, 6, 22), "Mystic Falls, VA");
-            customer2 = new Customer("Stefan Salvatore", "987-654-3210", "stefan@salvatore.com", new DateTime(1847, 11, 1), "Salvatore Mansion, Mystic Falls");
+            customer1 = new Customer("Elena Gilbert", "123-456-7890", "elena@gilbert.com", new DateTime(1992, 6, 22),
+                "Mystic Falls, VA");
+            customer2 = new Customer("Stefan Salvatore", "987-654-3210", "stefan@salvatore.com",
+                new DateTime(1847, 11, 1), "Salvatore Mansion, Mystic Falls");
         }
 
         [Test]
