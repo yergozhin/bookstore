@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Xml;
-using System.Xml.Serialization;
 
 namespace Bookstore.@class
 {
@@ -11,8 +8,8 @@ namespace Bookstore.@class
     {
         private static List<Discount> discounts = new List<Discount>();
 
-        private List<Customer> associatedCustomers = new List<Customer>();
-        public IReadOnlyList<Customer> getAssociatedCustomers() => associatedCustomers.AsReadOnly();
+        private List<OverlappingUser> associatedUsers = new List<OverlappingUser>();
+        public IReadOnlyList<OverlappingUser> GetAssociatedUsers() => associatedUsers.AsReadOnly();
 
         private string type;
         private float amountInPercentage;
@@ -23,14 +20,11 @@ namespace Bookstore.@class
             get => type;
             set
             {
-                if(value != "Single Use" && value != "Multiple Use")
-                {
-                    throw new ArgumentException("Type must be either Single Use or Multiple Use");
-                }
                 if (string.IsNullOrEmpty(value))
-                {
                     throw new ArgumentException("Type cannot be empty.");
-                }
+                if(value != "Single Use" && value != "Multiple Use")
+                    throw new ArgumentException("Type must be 'Single Use' or 'Multiple Use'.");
+
                 type = value;
             }
         }
@@ -41,9 +35,7 @@ namespace Bookstore.@class
             set
             {
                 if (value < 0 || value > 100)
-                {
                     throw new ArgumentException("Amount in percentage must be between 0 and 100.");
-                }
                 amountInPercentage = value;
             }
         }
@@ -54,9 +46,7 @@ namespace Bookstore.@class
             set
             {
                 if (DateTime.Today > value)
-                {
                     throw new ArgumentException("Invalid date of deadline.");
-                }
                 deadlineDate = value;
             }
         }
@@ -69,6 +59,7 @@ namespace Bookstore.@class
             discounts.Add(this);
         }
 
+        // Methods for static list
         public static void ClearDiscounts()
         {
             discounts.Clear();
@@ -77,31 +68,32 @@ namespace Bookstore.@class
         {
             return new List<Discount>(discounts);
         }
-        /*public static void Add(Discount discount)
+
+        // -----------------------------------
+        // Replaces "addCustomer" with checking:
+        // user must have Customer role
+        // -----------------------------------
+        public void AddUserAsCustomer(OverlappingUser user)
         {
-            discounts.Add(discount);
-        }*/
-        public void addCustomer(Customer customer)
-        {
-            if (!associatedCustomers.Contains(customer))
+            if (!user.Roles.HasFlag(UserRole.Customer))
+                throw new InvalidOperationException("User does not have Customer role.");
+
+            if (!associatedUsers.Contains(user))
             {
-                associatedCustomers.Add(customer);
-                customer.addDiscount(this);
+                associatedUsers.Add(user);
+                // user.AddDiscount(this); 
+                // Typically we rely on the user to call user.AddDiscount(this)
+                // to avoid circular calls. 
+                // But if we want mutual linkage always, we could call it here.
             }
         }
-        public void removeCustomer(Customer customer)
+
+        public void RemoveUserAsCustomer(OverlappingUser user)
         {
-            if (associatedCustomers.Contains(customer))
+            if (associatedUsers.Contains(user))
             {
-                associatedCustomers.Remove(customer);
-                customer.removeDiscount(this);
-            }
-        }
-        public void removeAllCustomers()
-        {
-            foreach (Customer customer in associatedCustomers)
-            {
-                removeCustomer(customer);
+                associatedUsers.Remove(user);
+                // user.RemoveDiscount(this);
             }
         }
     }

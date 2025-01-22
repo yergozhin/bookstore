@@ -1,37 +1,38 @@
 ﻿using System;
+using System.IO;
 using System.Xml;
 using System.Xml.Serialization;
+using System.Collections.Generic;
 
 namespace Bookstore.@class
 {
-	public class BookstoreFileManager
-	{
-		public BookstoreFileManager()
-		{
-		}
+    public class BookstoreFileManager
+    {
         private static string bookstoreFilePath = "bookstore.xml";
+
         public static void SaveBookstore()
         {
-            BookstoreContainer bookstore = new BookstoreContainer
+            BookstoreContainer container = new BookstoreContainer
             {
                 Books = Book.GetBooks(),
                 Authors = Author.GetAuthors(),
                 Discounts = Discount.GetDiscounts(),
-                Orders = Order.GetOrders(),
+                Orders = OrderBase.GetAllOrders(),
                 Publishers = Publisher.GetPublishers(),
                 Reviews = Review.GetReviews(),
-                Users = User.GetUsers()
+                Users = OverlappingUser.GetUsers()
             };
 
-            XmlSerializer xmlSerializer = new XmlSerializer(typeof(BookstoreContainer));
+            XmlSerializer serializer = new XmlSerializer(typeof(BookstoreContainer));
             using (StreamWriter file = File.CreateText(bookstoreFilePath))
             {
                 using (XmlTextWriter writer = new XmlTextWriter(file))
                 {
-                    xmlSerializer.Serialize(writer, bookstore);
+                    serializer.Serialize(writer, container);
                 }
             }
         }
+
         public static bool LoadBookstore()
         {
             if (!File.Exists(bookstoreFilePath))
@@ -39,77 +40,102 @@ namespace Bookstore.@class
                 Book.ClearBooks();
                 Author.ClearAuthors();
                 Discount.ClearDiscounts();
-                Order.ClearOrders();
+                OrderBase.ClearOrders();
                 Publisher.ClearPublishers();
                 Review.ClearReviews();
-                User.ClearUsers();
+                OverlappingUser.ClearUsers();
                 return false;
             }
 
-            XmlSerializer xmlSerializer = new XmlSerializer(typeof(BookstoreContainer));
+            XmlSerializer serializer = new XmlSerializer(typeof(BookstoreContainer));
             using (StreamReader file = File.OpenText(bookstoreFilePath))
             {
                 using (XmlTextReader reader = new XmlTextReader(file))
                 {
                     try
                     {
-                        BookstoreContainer bookstore = (BookstoreContainer)xmlSerializer.Deserialize(reader);
+                        BookstoreContainer container = (BookstoreContainer)serializer.Deserialize(reader);
+                        
                         Book.ClearBooks();
                         Author.ClearAuthors();
                         Discount.ClearDiscounts();
-                        Order.ClearOrders();
+                        OrderBase.ClearOrders();
                         Publisher.ClearPublishers();
                         Review.ClearReviews();
-                        User.ClearUsers();
-
-                        // Adding loaded books, authors and etc. to static lists
-                        foreach (var book in bookstore.Books)
+                        OverlappingUser.ClearUsers();
+                        
+                        foreach (var b in container.Books)
                         {
-                            //Book.Add(book);
-                            Book newBook = new Book(book.Title,book.Price,book.LanguageOfPublication,book.ListOfLanguagesToWhichTranslated);
+                            new Book(b.Title, b.Price, b.LanguageOfPublication, b.ListOfLanguagesToWhichTranslated);
                         }
-                        foreach (var author in bookstore.Authors)
+                        foreach (var a in container.Authors)
                         {
-                            Author newAuthor = new Author(author.FirstName, author.LastName, author.Bio);
-                            //Author.Add(author);
+                            new Author(a.FirstName, a.LastName, a.Bio);
                         }
-                        foreach (var discount in bookstore.Discounts)
+                        foreach (var d in container.Discounts)
                         {
-                            Discount newDiscount = new Discount(discount.Type, discount.AmountInPercentage, discount.DeadlineDate);
-                            //Discount.Add(discount);
+                            new Discount(d.Type, d.AmountInPercentage, d.DeadlineDate);
                         }
-                        foreach (var order in bookstore.Orders)
+                        foreach (var o in container.Orders)
                         {
-                            Order newOrder = new Order(order.OrderDate, order.Status);
-                            //Order.Add(order);
+                            
+                            if (o is CreatedOrder co)
+                            {
+                                new CreatedOrder(o.OrderDate);
+                                
+                            }
+                            else if (o is PendingPaymentOrder ppo)
+                            {
+                                new PendingPaymentOrder(o.OrderDate);
+                            }
+                            else if (o is PaymentCancelledOrder pco)
+                            {
+                                new PaymentCancelledOrder(pco); 
+                            }
+                            else if (o is ShippingOrder so)
+                            {
+                                new ShippingOrder(so);
+                            }
+                            else if (o is DeliveringOrder doo)
+                            {
+                                new DeliveringOrder(doo);
+                            }
+                            else if (o is CompletedOrder cpo)
+                            {
+                                new CompletedOrder(cpo);
+                            }
                         }
-                        foreach (var publisher in bookstore.Publishers)
+                        foreach (var pub in container.Publishers)
                         {
-                            Publisher newPublisher = new Publisher(publisher.Name, publisher.Address, publisher.Email, publisher.PhoneNumber);
-                            //Publisher.Add(publisher);
+                            new Publisher(pub.Name, pub.Address, pub.Email, pub.PhoneNumber);
                         }
-                        foreach (var review in bookstore.Reviews)
+                        foreach (var r in container.Reviews)
                         {
-                            Review newReview = new Review(review.Rating, review.Comment, review.ReviewDate);
-                            //Review.Add(review);
+                            new Review(r.Rating, r.Comment, r.ReviewDate);
                         }
-                        foreach (var user in bookstore.Users)
+                        foreach (var u in container.Users)
                         {
-                            User newUser = new User(user.Name, user.PhoneNumber, user.Email, user.DateOfBirth);
-                            //User.Add(user);
+                            OverlappingUser newUser = new OverlappingUser(
+                                u.Name,
+                                u.PhoneNumber,
+                                u.Email,
+                                u.DateOfBirth,
+                                u.Roles
+                            );
+                            
                         }
 
                         return true;
                     }
-                    catch (Exception)
+                    catch
                     {
                         Book.ClearBooks();
                         Author.ClearAuthors();
                         Discount.ClearDiscounts();
-                        Order.ClearOrders();
+                        OrderBase.ClearOrders();
                         Publisher.ClearPublishers();
                         Review.ClearReviews();
-                        User.ClearUsers();
+                        OverlappingUser.ClearUsers();
                         return false;
                     }
                 }
@@ -117,4 +143,3 @@ namespace Bookstore.@class
         }
     }
 }
-

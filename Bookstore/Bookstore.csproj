@@ -20,9 +20,4 @@
     <None Remove="class\bookGenre\" />
     <None Remove="class\userAbstract\" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="class\bookType\" />
-    <Folder Include="class\bookGenre\" />
-    <Folder Include="class\userAbstract\" />
-  </ItemGroup>
 </Project>

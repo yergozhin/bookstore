@@ -7,46 +7,46 @@ namespace Bookstore.@class
     public class Wishlist
     {
         private List<Book> associatedBooks = new List<Book>();
-        public IReadOnlyList<Book> getAssociatedBooks() => associatedBooks.AsReadOnly();
-        private int maxCapacity = 1000;
+        public IReadOnlyList<Book> GetAssociatedBooks() => associatedBooks.AsReadOnly();
 
+        private int maxCapacity = 1000;
         public int MaxCapacity
         {
             get => maxCapacity;
             set
             {
                 if (value <= 0)
-                {
                     throw new ArgumentException("Max capacity must be greater than zero.");
-                }
                 maxCapacity = value;
             }
         }
 
-        public Wishlist()
-        {
-        }
-        public void addBook(Book book)
+        public Wishlist() { }
+
+        public void AddBook(Book book)
         {
             if (!associatedBooks.Contains(book))
             {
                 associatedBooks.Add(book);
-                book.assignToWishlist(this);
+                book.AssignToWishlist(this);
             }
         }
-        public void removeBook(Book book)
+
+        public void RemoveBook(Book book)
         {
             if (associatedBooks.Contains(book))
             {
                 associatedBooks.Remove(book);
-                book.removeFromWishlist(this);
+                book.RemoveFromWishlist(this);
             }
         }
-        public void removeAllBooks()
+
+        public void RemoveAllBooks()
         {
-            foreach(Book book in associatedBooks)
+            var temp = new List<Book>(associatedBooks);
+            foreach (Book b in temp)
             {
-                removeBook(book);
+                RemoveBook(b);
             }
         }
     }
